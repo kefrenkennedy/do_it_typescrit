@@ -48,8 +48,8 @@ export const SignUp = () => {
       bgGradient={[
         "linear(to-b, purple.800 65%, white 35%)",
         "linear(to-b, purple.800 65%, white 35%)",
-        "linear(to-r, purple.800 65%, white 35%)",
-        "linear(to-r, purple.800 65%, white 35%)",
+        "linear(to-l, purple.800 65%, white 35%)",
+        "linear(to-l, purple.800 65%, white 35%)",
       ]}
       color="white"
     >
@@ -59,13 +59,13 @@ export const SignUp = () => {
         flexDirection={["column", "column", "row", "row"]}
         alignItems="center"
       >
-        <SignUpInfo />
         <SignUpForm
           errors={errors}
           handleSignUp={handleSubmit(handleSignUp)}
           loading={loading}
           register={register}
         />
+        <SignUpInfo />
       </Flex>
     </Flex>
   );

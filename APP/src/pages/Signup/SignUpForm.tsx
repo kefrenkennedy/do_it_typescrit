@@ -25,7 +25,7 @@ export const SignUpForm = ({
   <Grid
     onSubmit={handleSignUp}
     as="form"
-    padding="30px 15px"
+    padding="30px 25px"
     border="3px solid"
     borderColor="gray.100"
     bg="white"
@@ -33,7 +33,7 @@ export const SignUpForm = ({
     w={["100%", "100%", "40%", "40%"]}
     mt={["4", "4", "0"]}
   >
-    <Heading size="lg">Bem vindo de volta!</Heading>
+    <Heading size="lg">Crie sua conta</Heading>
     <VStack mt="6" spacing="5">
       <Box w="100%">
         <Input
@@ -75,30 +75,19 @@ export const SignUpForm = ({
         {...register("confirm_password")}
       />
     </VStack>
-    <VStack mt="4" spacing="5">
-      <Button
-        isLoading={loading}
-        bg="purple.800"
-        w="100%"
-        color="white"
-        h="60px"
-        borderRadius="8px"
-        _hover={{ background: "purple.900" }}
-        type="submit"
-      >
-        Entrar
-      </Button>
-      <Text color="gray.400">Ainda não possui uma conta?</Text>
-      <Button
-        bg="gray.100"
-        w="100%"
-        color="gray.300"
-        h="60px"
-        borderRadius="8px"
-        _hover={{ background: "gray.200" }}
-      >
-        Cadastrar
-      </Button>
-    </VStack>
+
+    <Button 
+      mt="4"
+      isLoading={loading}
+      bg="purple.800"
+      w="100%"
+      color="white"
+      h="60px"
+      borderRadius="8px"
+      _hover={{ background: "purple.900" }}
+      type="submit"
+    >
+      Finalizar cadastro
+    </Button>
   </Grid>
 );
