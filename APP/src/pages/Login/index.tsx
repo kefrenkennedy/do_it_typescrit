@@ -15,6 +15,7 @@ import { Input } from "../../components/Form/input.jsx";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { useAuth } from "../../contexts/AuthContext";
 
 const signInSchema = yup.object().shape({
   email: yup.string().required("Email obrigatório").email("Email inválido"),
@@ -27,7 +28,9 @@ interface SignInData {
 }
 
 export const Login = () => {
-  const [loading, serLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const { signIn, user, accessToken } = useAuth();
 
   const {
     formState: { errors },
@@ -37,7 +40,12 @@ export const Login = () => {
     resolver: yupResolver(signInSchema),
   });
 
-  const handleSignIn: SubmitHandler<SignInData> = (data) => console.log(data);
+  const handleSignIn = (data: SignInData) => {
+    setLoading(true);
+    signIn(data)
+      .then((_) => setLoading(false))
+      .catch((err) => setLoading(false));
+  };
 
   return (
     <Flex
