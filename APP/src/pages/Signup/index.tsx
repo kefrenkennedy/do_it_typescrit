@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { SignUpInfo } from "./SignUpInfo";
 import { SignUpForm } from "./SignUpForm";
+import { GoBackButton } from "./GoBackButton";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("Nome obrigatório"),
@@ -59,6 +60,7 @@ export const SignUp = () => {
         flexDirection={["column", "column", "row", "row"]}
         alignItems="center"
       >
+        <GoBackButton top="340" left="24" />
         <SignUpForm
           errors={errors}
           handleSignUp={handleSubmit(handleSignUp)}

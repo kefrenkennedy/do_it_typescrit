@@ -25,7 +25,7 @@ export const SignUpForm = ({
   <Grid
     onSubmit={handleSignUp}
     as="form"
-    padding="30px 25px"
+    padding="40px 25px"
     border="3px solid"
     borderColor="gray.100"
     bg="white"
@@ -77,7 +77,7 @@ export const SignUpForm = ({
     </VStack>
 
     <Button 
-      mt="4"
+      mt="8"
       isLoading={loading}
       bg="purple.800"
       w="100%"
