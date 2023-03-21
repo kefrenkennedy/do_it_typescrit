@@ -14,6 +14,7 @@ import LogoSecondary from "../../assets/logo-secondary.png";
 import { Input } from "../../components/Form/input.jsx";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useState } from "react";
 
 const signInSchema = yup.object().shape({
   email: yup.string().required("Email obrigatório").email("Email inválido"),
@@ -26,6 +27,8 @@ interface SignInData {
 }
 
 export const Login = () => {
+  const [loading, serLoading] = useState(false);
+
   const {
     formState: { errors },
     register,
@@ -95,7 +98,31 @@ export const Login = () => {
               {...register("password")}
             />
           </VStack>
-          <Button type="submit">Entrar</Button>
+          <VStack mt="4" spacing="5">
+            <Button
+              isLoading={loading}
+              bg="purple.800"
+              w="100%"
+              color="white"
+              h="60px"
+              borderRadius="8px"
+              _hover={{ background: "purple.900" }}
+              type="submit"
+            >
+              Entrar
+            </Button>
+            <Text color="gray.400">Ainda não possui uma conta?</Text>
+            <Button
+              bg="gray.100"
+              w="100%"
+              color="gray.300"
+              h="60px"
+              borderRadius="8px"
+              _hover={{ background: "gray.200" }}
+            >
+              Cadastrar
+            </Button>
+          </VStack>
         </Grid>
       </Flex>
     </Flex>

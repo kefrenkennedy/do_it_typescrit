@@ -79,7 +79,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           name={name}
           bg="gray.50"
           color={inputVariation[variation]}
-          onChangeCaptureValue={(e: any) => setValue(e.currentTarget.value)}
+          onChangeCapture={(e) => setValue(e.currentTarget.value)}
           borderColor={inputVariation[variation]}
           onFocus={handleInputFocus}
           onBlurCapture={handleInputBlur}
