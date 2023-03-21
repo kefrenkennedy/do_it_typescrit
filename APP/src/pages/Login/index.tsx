@@ -6,6 +6,7 @@ import {
   Image,
   VStack,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { FaEnvelope, FaLock } from "react-icons/fa";
@@ -70,14 +71,22 @@ export const Login = () => {
         >
           <Heading size="lg">Bem vindo de volta!</Heading>
           <VStack mt="6" spacing="5">
-            <Input
-              placeholder="Digite seu login"
-              icon={FaEnvelope}
-              label="Login"
-              type="email"
-              error={errors.email}
-              {...register("email")}
-            />
+            <Box w="100%">
+              <Input
+                placeholder="Digite seu login"
+                icon={FaEnvelope}
+                label="Login"
+                type="email"
+                error={errors.email}
+                {...register("email")}
+              />
+              {!errors.email && (
+                <Text ml="1" mt="1" color="gray.300">
+                  Exemplo: nome@email.com
+                </Text>
+              )}
+            </Box>
+
             <Input
               placeholder="Digite sua senha"
               icon={FaLock}

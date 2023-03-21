@@ -25,7 +25,7 @@ import { FieldError, FieldErrors } from "react-hook-form";
 interface InputProps extends ChakraInputProps {
   name: string;
   label?: string;
-  error?: any;
+  error?: FieldError | null;
   icon?: IconType;
 }
 
@@ -37,7 +37,7 @@ const inputVariation: inputVariationOptions = {
   error: "red.500",
   default: "gray.200",
   focus: "purple.800",
-  filled: "green.600",
+  filled: "green.500",
 };
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
@@ -92,7 +92,9 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           {...rest}
         />
 
-        {!!error && <FormErrorMessage>{error.message}</FormErrorMessage>}
+        {!!error && (
+          <FormErrorMessage color="red.500"> {error.message} </FormErrorMessage>
+        )}
       </InputGroup>
     </FormControl>
   );
