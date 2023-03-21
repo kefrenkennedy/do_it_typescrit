@@ -67,7 +67,7 @@ export const SignUp = () => {
       >
         {isWideVersion ? (
           <>
-            <GoBackButton top="340" left="24" />
+            <GoBackButton top="220" left="24" />
             <SignUpForm
               errors={errors}
               handleSignUp={handleSubmit(handleSignUp)}
@@ -78,14 +78,14 @@ export const SignUp = () => {
           </>
         ) : (
           <>
-            <GoBackButton top="10" left="75vw" />
+            <GoBackButton top="100px" left="75vw" />
             <SignUpInfo />
             <SignUpForm
               errors={errors}
               handleSignUp={handleSubmit(handleSignUp)}
               loading={loading}
               register={register}
-            />{" "}
+            />
           </>
         )}
       </Flex>

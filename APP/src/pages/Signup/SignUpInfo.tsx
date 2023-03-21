@@ -13,13 +13,19 @@ import LogoSecondary from "../../assets/logo-secondary.png";
 import { theme } from "../../styles/theme";
 
 export const SignUpInfo = () => (
-  <Grid mb="200px" w={["100%", "100%", "90%", "50%"]} paddingLeft="150px">
+  <Grid
+        mb={["40px", "0px"]}
+        mt={["50px", "100px"]}
+    w={["100%", "100%", "90%", "50%"]}
+    paddingLeft={["10px", "10px", "150px"]}
+  >
     <Image
       src={LogoSecondary}
-            alt="doit"
+      alt="doit"
+      mb={["50px", "50px"]}
       boxSize={["120px", "120px", "150px", "150px"]}
     />
-    <VStack spacing="14" mt="100px">
+    <VStack mt={["10px", "0"]} spacing="14">
       <Flex w="100%">
         <Center borderRadius="5px" bg="white" w="50px" h="50px">
           <FaForward color={theme.colors.purple["800"]} size={25} />

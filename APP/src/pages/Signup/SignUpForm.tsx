@@ -31,7 +31,7 @@ export const SignUpForm = ({
     bg="white"
     color="gray.900"
     w={["100%", "100%", "40%", "40%"]}
-    mt={["4", "4", "0"]}
+    mt={["0", "50", "0"]}
   >
     <Heading size="lg">Crie sua conta</Heading>
     <VStack mt="6" spacing="5">
