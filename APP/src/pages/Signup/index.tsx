@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import { useForm, FormState } from "react-hook-form";
 
 import * as yup from "yup";
@@ -40,6 +40,11 @@ export const SignUp = () => {
     console.log(data);
   };
 
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    md: true,
+  });
+
   return (
     <Flex
       padding={["10px 15px", "10 15px", "0px", "0px"]}
@@ -60,14 +65,29 @@ export const SignUp = () => {
         flexDirection={["column", "column", "row", "row"]}
         alignItems="center"
       >
-        <GoBackButton top="340" left="24" />
-        <SignUpForm
-          errors={errors}
-          handleSignUp={handleSubmit(handleSignUp)}
-          loading={loading}
-          register={register}
-        />
-        <SignUpInfo />
+        {isWideVersion ? (
+          <>
+            <GoBackButton top="340" left="24" />
+            <SignUpForm
+              errors={errors}
+              handleSignUp={handleSubmit(handleSignUp)}
+              loading={loading}
+              register={register}
+            />
+            <SignUpInfo />
+          </>
+        ) : (
+          <>
+            <GoBackButton top="10" left="75vw" />
+            <SignUpInfo />
+            <SignUpForm
+              errors={errors}
+              handleSignUp={handleSubmit(handleSignUp)}
+              loading={loading}
+              register={register}
+            />{" "}
+          </>
+        )}
       </Flex>
     </Flex>
   );
