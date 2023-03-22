@@ -85,6 +85,7 @@ export const SignUp = () => {
         onClose={onModalSuccessClose}
       />
       <ModalError
+        secondaryText="Você já pode tentar novamente, <br> clicando <br/> no botão acima ou aguarde alguns minutos..."
         error="Email já cadastrado"
         isOpen={isModalErrorOpen}
         onClose={onModalErrorClose}
