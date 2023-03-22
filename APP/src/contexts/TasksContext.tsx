@@ -1,12 +1,33 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { AxiosResponse } from "axios";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useCallback,
+} from "react";
+import { api } from "../services/api";
 
 interface TaskProviderProps {
   children: ReactNode;
 }
 
-const TaskContext = createContext({});
+interface Task {
+  id: string;
+  title: string;
+  description: string;
+  userId: string;
+  completed: boolean;
+}
 
-export const useTasks = () => {
+interface TaskContextData {
+  tasks: Task[];
+  createTask: (data: Task, accessToken: string) => Promise<void>;
+}
+
+const TaskContext = createContext<TaskContextData>({} as TaskContextData);
+
+const useTasks = () => {
   const context = useContext(TaskContext);
 
   if (!context) {
@@ -15,8 +36,25 @@ export const useTasks = () => {
   return context;
 };
 
-export const TaskProvider = ({ children }: TaskProviderProps) => {
-  const [tasks, setTasks] = useState([]);
+const TaskProvider = ({ children }: TaskProviderProps) => {
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  return <TaskContext.Provider value={{}}>{children}</TaskContext.Provider>;
+  const createTask = useCallback(async (data: Task, accessToken: string) => {
+    api
+      .post("tasks", data, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res: AxiosResponse<Task>) =>
+        setTasks((oldTasks) => [...oldTasks, res.data])
+      )
+      .catch((err) => console.log(err));
+  }, []);
+
+  return (
+    <TaskContext.Provider value={{ tasks, createTask }}>
+      {children}
+    </TaskContext.Provider>
+  );
 };
+
+export { TaskProvider, useTasks };
