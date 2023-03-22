@@ -1,11 +1,15 @@
-import { Button, Center, Flex } from "@chakra-ui/react";
+import { Button, Center, Flex, useDisclosure } from "@chakra-ui/react";
 import { FaSearch } from "react-icons/fa";
 import { theme } from "../../styles/theme";
+import { ModalCreateTask } from "../Modal/ModalCreateTask";
 import { Input } from "./input";
 
 export const SearchBox = () => {
+const {isOpen, onClose, onOpen} = useDisclosure();
+
   return (
     <>
+      <ModalCreateTask isOpen={isOpen} onClose={onClose} />
       <Flex
         mt="6"
         w="100%"
@@ -36,6 +40,7 @@ export const SearchBox = () => {
           ml="4"
           h="60px"
           borderRadius="8px"
+          onClick={onOpen}
           _hover={{ bg: "purple.600" }}
         >
           Adicionar uma nova tarefa

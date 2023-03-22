@@ -22,7 +22,7 @@ interface Task {
 
 interface TaskContextData {
   tasks: Task[];
-  createTask: (data: Task, accessToken: string) => Promise<void>;
+  createTask: (data: Omit<Task, "id">, accessToken: string) => Promise<void>;
 }
 
 const TaskContext = createContext<TaskContextData>({} as TaskContextData);
@@ -39,16 +39,19 @@ const useTasks = () => {
 const TaskProvider = ({ children }: TaskProviderProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const createTask = useCallback(async (data: Task, accessToken: string) => {
-    api
-      .post("tasks", data, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res: AxiosResponse<Task>) =>
-        setTasks((oldTasks) => [...oldTasks, res.data])
-      )
-      .catch((err) => console.log(err));
-  }, []);
+  const createTask = useCallback(
+    async (data: Omit<Task, "id">, accessToken: string) => {
+      api
+        .post("tasks", data, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res: AxiosResponse<Task>) =>
+          setTasks((oldTasks) => [...oldTasks, res.data])
+        )
+        .catch((err) => console.log(err));
+    },
+    []
+  );
 
   return (
     <TaskContext.Provider value={{ tasks, createTask }}>
