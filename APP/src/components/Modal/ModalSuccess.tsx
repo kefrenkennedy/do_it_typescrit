@@ -1,4 +1,3 @@
-import { theme } from "@chakra-ui/core";
 import {
   Box,
   Button,
@@ -13,6 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaExclamation, FaTimes } from "react-icons/fa";
+import { theme } from "../../styles/theme";
 
 interface ModalSuccessProps {
   isOpen: boolean;
