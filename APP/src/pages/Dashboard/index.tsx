@@ -1,8 +1,12 @@
 import {
   Box,
   Button,
+  Center,
   Grid,
   GridItem,
+  Heading,
+  Skeleton,
+  Stack,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -24,7 +28,7 @@ interface Task {
 export const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const { user, accessToken } = useAuth();
-  const { tasks, loadTasks } = useTasks();
+  const { tasks, loadTasks, notFound, taskNotFound } = useTasks();
 
   const [selectedTask, setSelectedTask] = useState<Task>({} as Task);
 
@@ -43,6 +47,66 @@ export const Dashboard = () => {
     onTaskDetailOpen();
   };
 
+  if (notFound) {
+    return (
+      <>
+        <ModalTaskDetail
+          isOpen={isTaskDetailOpen}
+          onClose={onTaskDetailClose}
+          task={selectedTask}
+        />
+        <Box>
+          <Header />
+          <SearchBox />
+          <Center mt="4" textAlign="center" display="flex" flexDir="column">
+            <Heading size="lg"> Não encontramos resultados para:</Heading>
+            <Text fontSize="xl" color="gray.300" fontWeight="bold">
+              {taskNotFound}
+            </Text>
+            <Box
+              mt="6"
+              w={["80%", "40%"]}
+              padding="6"
+              boxShadow="base"
+              bg="white"
+            >
+              <Stack>
+                <Skeleton
+                  startColor="gray.100"
+                  endColor="gray.200"
+                  height="20px"
+                  borderRadius="20px"
+                  w="80%"
+                />
+                <Skeleton
+                  startColor="gray.100"
+                  endColor="gray.200"
+                  height="20px"
+                  borderRadius="20px"
+                  w="60%"
+                />
+              </Stack>
+              <Stack mt="8">
+                <Skeleton
+                  startColor="gray.100"
+                  endColor="gray.200"
+                  height="15px"
+                  borderRadius="20px"
+                />
+                <Skeleton
+                  startColor="gray.100"
+                  endColor="gray.200"
+                  height="15px"
+                  borderRadius="20px"
+                />
+              </Stack>
+            </Box>
+          </Center>
+        </Box>
+      </>
+    );
+  }
+
   return (
     <>
       <ModalTaskDetail
@@ -52,6 +116,7 @@ export const Dashboard = () => {
       />
       <Box>
         <Header />
+        <SearchBox />
         <Grid
           w="100%"
           templateColumns="repeat(auto-fill, minmax(420px, 1fr))"
