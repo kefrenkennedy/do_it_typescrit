@@ -5,7 +5,7 @@ import { ModalCreateTask } from "../Modal/ModalCreateTask";
 import { Input } from "./input";
 
 export const SearchBox = () => {
-const {isOpen, onClose, onOpen} = useDisclosure();
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   return (
     <>
@@ -18,9 +18,14 @@ const {isOpen, onClose, onOpen} = useDisclosure();
         paddingBottom="6"
         borderBottomWidth="1px"
         borderColor="gray.50"
+        flexDir={["column", "column", "row", "row"]}
       >
         <Flex as="form">
-          <Input name="title" placeholder="Pesquisar por tarefa" w="35vw" />
+          <Input
+            name="title"
+            placeholder="Pesquisar por tarefa"
+            w={["100%", "100%", "35vw"]}
+          />
           <Center
             borderRadius="8px"
             as="button"
@@ -37,10 +42,11 @@ const {isOpen, onClose, onOpen} = useDisclosure();
           bg="purple.500"
           color="white"
           paddingX="16"
-          ml="4"
+          ml={["0", "0", "4"]}
           h="60px"
           borderRadius="8px"
           onClick={onOpen}
+          mt={["4", "4", "0"]}
           _hover={{ bg: "purple.600" }}
         >
           Adicionar uma nova tarefa
