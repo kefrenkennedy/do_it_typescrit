@@ -17,6 +17,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { useTasks } from "../../contexts/TasksContext";
 import { useState, useEffect } from "react";
 import { ModalTaskDetail } from "../../components/Modal/ModalTaskDetail";
+import { CardSkeleton } from "../../components/Skeleton/CardSkeleton";
 
 interface Task {
   id: string;
@@ -39,7 +40,7 @@ export const Dashboard = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    loadTasks(user.id, accessToken).then((res) => setLoading(false));
+    loadTasks(user.id, accessToken).then((res) => setLoading(true));
   }, []);
 
   const handleClick = (task: Task) => {
@@ -124,9 +125,11 @@ export const Dashboard = () => {
           paddingX="8"
           mt="8"
         >
-          {tasks.map((task) => (
-            <Card task={task} onClick={handleClick} />
-          ))}
+          {loading ? (
+            <CardSkeleton repeatCount={9} />
+          ) : (
+            tasks.map((task) => <Card task={task} onClick={handleClick} />)
+          )}
         </Grid>
         <SearchBox />
       </Box>
