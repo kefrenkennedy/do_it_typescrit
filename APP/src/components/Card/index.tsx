@@ -8,6 +8,8 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FaCheck, FaTrash } from "react-icons/fa";
+import { useAuth } from "../../contexts/AuthContext";
+import { useTasks } from "../../contexts/TasksContext";
 import { theme } from "../../styles/theme";
 
 interface Task {
@@ -21,7 +23,10 @@ interface CardProps {
   task: Task;
 }
 
-export const Card = ({task}: CardProps) => {
+export const Card = ({ task }: CardProps) => {
+  const { deleteTask, updateTask } = useTasks();
+  const { accessToken, user } = useAuth();
+
   return (
     <>
       <Box
@@ -47,6 +52,7 @@ export const Card = ({task}: CardProps) => {
               borderRadius="5px"
               borderColor="gray.200"
               bgColor="white"
+              onClick={() => deleteTask(task.id, accessToken)}
             >
               <FaTrash color={theme.colors.gray[300]} />
             </Center>
@@ -58,6 +64,7 @@ export const Card = ({task}: CardProps) => {
               borderRadius="5px"
               borderColor="gray.200"
               bgColor="white"
+              onClick={() => updateTask(task.id, user.id, accessToken)}
             >
               <FaCheck color="gray.200" />
             </Center>
@@ -65,7 +72,11 @@ export const Card = ({task}: CardProps) => {
         </Flex>
         <Box w="100%" mt="4">
           <Text>{task.description}</Text>
-          <Progress colorScheme="purple" mt="2.5" value={task.completed ? 100 : 10 } />
+          <Progress
+            colorScheme="purple"
+            mt="2.5"
+            value={task.completed ? 100 : 10}
+          />
           <Text color="gray.200" mt="3">
             07 March 2021
           </Text>
