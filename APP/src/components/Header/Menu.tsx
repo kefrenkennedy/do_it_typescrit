@@ -25,7 +25,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
   return (
     <>
       <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
-        <DrawerOverlay mt="8vh" />
+        <DrawerOverlay mt={["13vh", "8vh"]} />
         <DrawerContent ml="auto" mt="80px" w={["450px", "350px"]}>
           <DrawerHeader
             borderBottomWidth="1px"
