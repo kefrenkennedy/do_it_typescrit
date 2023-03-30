@@ -43,25 +43,28 @@ export const ModalSuccess = ({
             <Text fontWeight="bold" ml="2">
               Yesss...
             </Text>
+
+            <Center
+              onClick={onClose}
+              as="button"
+              ml="auto"
+              h="32px"
+              w="32px"
+              bg="red.600"
+              fontSize="lg"
+              borderRadius="md"
+            >
+              <FaTimes color={theme.colors.white} />
+            </Center>
           </ModalHeader>
-          <Center
-            onClick={onClose}
-            as="button"
-            ml="auto"
-            h="32px"
-            w="32px"
-            bg="red.600"
-            fontSize="lg"
-            borderRadius="md"
-          >
-            <FaTimes color={theme.colors.white} />
-          </Center>
-          <ModalBody>
-          <Box
+          <ModalBody textAlign="center">
+            <Text>
+              <Box
                 dangerouslySetInnerHTML={{
                   __html: message,
                 }}
               />
+            </Text>
           </ModalBody>
 
           <ModalFooter flexDirection="column">
