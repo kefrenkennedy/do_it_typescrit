@@ -67,13 +67,12 @@ export const SignUpForm = ({
         {...register("password")}
       />
       <Input
-        name="confirm_password"
         placeholder="Confirme sua senha"
         icon={FaLock}
         error={errors.confirm_password}
         label="Confirmação de senha"
         type="password"
-        
+        {...register("confirm_password")}
       />
     </VStack>
 
