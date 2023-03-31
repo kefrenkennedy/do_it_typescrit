@@ -31,11 +31,11 @@ interface TaskData {
 }
 
 const createTaskSchema = yup.object().shape({
-  title: yup.string().required("Campo obrigatório"),
-  description: yup
+  title: yup
     .string()
-    .required("Campo obrigatório")
-    .max(100, "Máximo de 100 caracteres"),
+    .required("Required Field")
+    .max(100, "aximum of 100 characters"),
+  description: yup.string(),
 });
 
 export const ModalCreateTask = ({ isOpen, onClose }: ModalCreateTaskProps) => {

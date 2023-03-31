@@ -88,7 +88,7 @@ export const ModalSuccess = ({
           </ModalFooter>
         </ModalContent>
       </Modal>
-      ;
+      
     </>
   );
 };

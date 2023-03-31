@@ -1,22 +1,39 @@
-const cors = require("cors");
-const jsonServer = require("json-server");
-const auth = require("json-server-auth");
+// Import required packages
+const cors = require('cors');
+const jsonServer = require('json-server');
+const auth = require('json-server-auth');
 
-const app = jsonServer.create();
-const router = jsonServer.router("db.json");
-const port = process.env.PORT || 3333;
+// Create a new json-server instance
+const server = jsonServer.create();
 
-app.db = router.db;
+// Create a new router instance and set it up to use db.json as its data source
+const apiRouter = jsonServer.router('db.json');
 
-const rules = auth.rewriter({
-  "/users*": "/600/users$1",
-  "/tasks*": "/600/tasks$1",
+// Set the port number to either the PORT environment variable or 3333 as the default
+const serverPort = process.env.PORT || 3333;
+
+// Set the db property of the server instance to the db property of the apiRouter instance
+server.db = apiRouter.db;
+
+// Set up authentication rewriter rules to create a separate namespace for users and tasks
+const authRules = auth.rewriter({
+  '/users*': '/600/users$1',
+  '/tasks*': '/600/tasks$1',
 });
 
-app.use(cors());
-app.use(rules);
-app.use(auth);
-app.use(router);
-app.listen(port);
+// Use the cors middleware to handle CORS requests
+server.use(cors());
 
-console.log("Server is running on port:", port);
+// Use the authentication rewriter middleware to handle authentication rewriter rules
+server.use(authRules);
+
+// Use the auth middleware to handle authentication and authorization for the API
+server.use(auth);
+
+// Use the apiRouter middleware to handle API requests
+server.use(apiRouter);
+
+// Start the server and listen on the specified port
+server.listen(serverPort, () => {
+  console.log(`Server is running on port: ${serverPort}`);
+});

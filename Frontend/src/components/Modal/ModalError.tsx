@@ -73,7 +73,6 @@ export const ModalError = ({
           </ModalFooter>
         </ModalContent>
       </Modal>
-      ;
     </>
   );
 };

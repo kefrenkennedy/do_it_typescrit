@@ -14,8 +14,7 @@ import { theme } from "../../styles/theme";
 
 export const SignUpInfo = () => (
   <Grid
-        mb={["40px", "0px"]}
-        mt={["50px", "100px"]}
+    mb={["40px", "0px"]}
     w={["100%", "100%", "90%", "50%"]}
     paddingLeft={["10px", "10px", "150px"]}
   >
@@ -23,17 +22,20 @@ export const SignUpInfo = () => (
       src={LogoSecondary}
       alt="doit"
       mb={["50px", "50px"]}
-      boxSize={["120px", "120px", "150px", "150px"]}
+      minWidth="100px"
+      maxWidth="200px"
+      w={["21vw", "15vw", "21vw", "15vw"]}
+      /*       boxSize={["120px", "120px", "150px", "150px"]} */
     />
-    <VStack mt={["10px", "0"]} spacing="14">
+    <VStack mt={["10px", "0"]} spacing="14" mb="50px">
       <Flex w="100%">
         <Center borderRadius="5px" bg="white" w="50px" h="50px">
           <FaForward color={theme.colors.purple["800"]} size={25} />
         </Center>
         <Box ml="4">
-          <Heading size="lg"> Agilidade </Heading>
+          <Heading size="lg"> Agility </Heading>
           <Text>
-            Agilize seus projetos com rapidez <br /> e muita performance
+            Speed up your projects quickly <br /> and with great performance
           </Text>
         </Box>
       </Flex>
@@ -42,9 +44,9 @@ export const SignUpInfo = () => (
           <FaForward color={theme.colors.purple["800"]} size={25} />
         </Center>
         <Box ml="4">
-          <Heading size="lg"> Simplicidade </Heading>
+          <Heading size="lg"> Simplicity </Heading>
           <Text>
-            Armazene seus projetos em uma <br /> interface altamente usual
+            Store your projects in a <br /> highly user-friendly interface.
           </Text>
         </Box>
       </Flex>

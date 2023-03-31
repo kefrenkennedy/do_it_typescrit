@@ -33,7 +33,7 @@ export const NotFoundPage = () => {
             Ir para minhas tarefas
           </Button>
         </Box>
-        <Image src={NotFoundImg} />
+        <Image src={NotFoundImg} w="30vw"/>
       </Flex>
     </>
   );

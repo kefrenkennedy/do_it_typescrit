@@ -83,6 +83,24 @@
       "password": "$2a$10$ruRvYEpv71vvnqCfuXzqAOYdrYnp4aKFSWBN3up4wkx6hl5FPqsna",
       "name": "aa",
       "id": 14
+    },
+    {
+      "email": "a@a",
+      "password": "$2a$10$mQL3xtwMVGwV7RdGCIUueem1lOgBvuEgLR6Wkh1ouPVK4bVAA93Xi",
+      "name": "a",
+      "id": 15
+    },
+    {
+      "email": "a@a.a",
+      "password": "$2a$10$s.HcanN7tbI1RIYuGiRQ6.mlUJD40Xr9wVYJgCebIy1AJfYASiBIa",
+      "name": "a",
+      "id": 16
+    },
+    {
+      "email": "teste2@teste2.teste2",
+      "password": "$2a$10$5JLniZ0.yB5F/dhArMfRKe.zmkUdT76fbG2Zcn9ci.gej0uB0jibi",
+      "name": "teste2",
+      "id": 17
     }
   ],
   "tasks": [
@@ -92,6 +110,27 @@
       "userId": 12,
       "completed": false,
       "id": 2
+    },
+    {
+      "title": "teste1",
+      "description": "",
+      "userId": 13,
+      "completed": false,
+      "id": 3
+    },
+    {
+      "title": "teste2",
+      "description": "",
+      "userId": 13,
+      "completed": false,
+      "id": 4
+    },
+    {
+      "title": "aaa",
+      "description": "",
+      "userId": 17,
+      "completed": false,
+      "id": 5
     }
   ],
   "products": [],

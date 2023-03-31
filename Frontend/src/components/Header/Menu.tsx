@@ -51,10 +51,10 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
               </Center>
               <Box ml="4">
                 <Heading as="h2" fontSize="lg">
-                  Sair da minha conta
+                  Logout
                 </Heading>
                 <Text color="gray.300" fontSize="small">
-                  Sair da minha conta agora
+                  Logout now
                 </Text>
               </Box>
             </Flex>

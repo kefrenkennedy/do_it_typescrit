@@ -30,64 +30,62 @@ export const SignUpForm = ({
     borderColor="gray.100"
     bg="white"
     color="gray.900"
-    w={["100%", "100%", "40%", "40%"]}
-    mt={["0", "50", "0"]}
   >
-    <Heading size="lg">Crie sua conta</Heading>
-    <VStack mt="6" spacing="5">
+    <Heading size="lg">Create your account</Heading>
+    <VStack mt="1" spacing="5">
       <Box w="100%">
         <Input
-          placeholder="Digite seu nome"
+          placeholder="Type your name"
           icon={FaUser}
-          label="Nome"
+          label="Name"
           error={errors.name}
           {...register("name")}
         />
         <Input
-          placeholder="Digite seu login"
+          placeholder="Type your best Email"
           icon={FaEnvelope}
-          label="Login"
+          label="Email"
           type="email"
           error={errors.email}
           {...register("email")}
         />
         {!errors.email && (
           <Text ml="1" mt="1" color="gray.300">
-            Exemplo: nome@email.com
+            Example: name@email.com
           </Text>
         )}
       </Box>
 
       <Input
-        placeholder="Digite sua senha"
+        placeholder="Type your Password"
         icon={FaLock}
-        label="Senha"
+        label="Password"
         error={errors.password}
         type="password"
         {...register("password")}
       />
       <Input
-        placeholder="Confirme sua senha"
+        placeholder="Confirm Password"
         icon={FaLock}
         error={errors.confirm_password}
-        label="Confirmação de senha"
+        label="Confirm your Password"
         type="password"
         {...register("confirm_password")}
       />
     </VStack>
 
     <Button
-      mt="8"
+      mt="4"
       isLoading={loading}
       bg="purple.800"
       w="100%"
       color="white"
-      h="60px"
       borderRadius="8px"
       _hover={{ background: "purple.900" }}
       type="submit"
+      h="40px"
     >
-      Finalizar cadastro
+      Register
     </Button>
   </Grid>
 );

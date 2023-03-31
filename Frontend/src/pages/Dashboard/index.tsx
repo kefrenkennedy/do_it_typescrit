@@ -30,7 +30,7 @@ export const Dashboard = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    loadTasks(user.id, accessToken).then((res) => setLoading(true));
+    loadTasks(user.id, accessToken).then((res) => setLoading(false));
   }, []);
 
   const handleClick = (task: Task) => {

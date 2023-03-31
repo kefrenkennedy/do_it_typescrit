@@ -48,7 +48,7 @@ export const SearchBox = () => {
             as="button"
             ml="2"
             w="64px"
-            h="68px"
+            h="60px"
             fontSize="2xl"
             bg="purple.600"
           >

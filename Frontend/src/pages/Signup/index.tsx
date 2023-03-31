@@ -13,13 +13,23 @@ import { ModalError } from "../../components/Modal/ModalError";
 import { useHistory } from "react-router-dom";
 
 const signUpSchema = yup.object().shape({
-  name: yup.string().required("Nome obrigatório"),
-  email: yup.string().required("Email obrigatório").email("Email inválido"),
-  password: yup.string().required("Senha obrigatória"),
+  name: yup.string().required("Name is required"),
+  email: yup.string().required("Email is required").email("Invalid email"),
+  password: yup
+    .string()
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters long")
+    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .matches(/\d/, "Password must contain at least one number")
+    .matches(
+      /[!@#$%^&*(),.?":{}|<>]/,
+      "Password must contain at least one symbol"
+    ),
   confirm_password: yup
     .string()
-    .oneOf([yup.ref("password")], "Senhas diferentes")
-    .required("Confirmação de senha obrigatória"),
+    .oneOf([yup.ref("password")], "Passwords do not match")
+    .required("Password confirmation is required"),
 });
 
 export interface SignUpData {
@@ -76,23 +86,23 @@ export const SignUp = () => {
   return (
     <>
       <ModalSuccess
-        buttonMessage="Ir para o login agora"
-        message="Seu cadastro deu super certo, vamos lá"
+        buttonMessage="Go to Login now"
+        message="Your registration was successful, let's get started!"
         onClick={() => {
           history.push("/");
         }}
-        secondaryText="Você já pode começar criando <b> suas listas </b> de tarefas agora mesmo..."
+        secondaryText="You can start by creating <b> your task lists </b> right now..."
         isOpen={isModalSuccessOpen}
         onClose={onModalSuccessClose}
       />
       <ModalError
-        secondaryText="Você já pode tentar novamente, <br> clicando <br/> no botão acima ou aguarde alguns minutos..."
-        error="Email já cadastrado"
+        secondaryText="You can try again now by clicking the button above or wait a few minutes..."
+        error="Email already registered"
         isOpen={isModalErrorOpen}
         onClose={onModalErrorClose}
       />{" "}
       <Flex
-        padding={["10px 15px", "10 15px", "0px", "0px"]}
+        padding={["10px 15px", "10px 15px", "0px", "0px"]}
         alignItems="center"
         height={["auto", "auto", "100vh", "100vh"]}
         justifyContent="center"
@@ -112,7 +122,7 @@ export const SignUp = () => {
         >
           {isWideVersion ? (
             <>
-              <GoBackButton top="220" left="24" />
+              <GoBackButton top="100" left="12" />
               <SignUpForm
                 errors={errors}
                 handleSignUp={handleSubmit(handleSignUp)}

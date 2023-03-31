@@ -9,8 +9,8 @@ import { LoginInfo } from "./LoginInfo";
 import { LoginForm } from "./LoginForm";
 
 const signInSchema = yup.object().shape({
-  email: yup.string().required("Email required.").email("Invalid Email."),
-  password: yup.string().required("Password required."),
+  email: yup.string().required("Email is required").email("Invalid Email"),
+  password: yup.string().required("Password is required"),
 });
 
 export interface SignInData {
@@ -41,7 +41,7 @@ export const Login = () => {
   return (
     <>
       <Flex
-        padding={["10px 15px", "10 15px", "0px", "0px"]}
+        padding={["10px 15px", "10px 15px", "0px", "0px"]}
         alignItems="center"
         height={["auto", "auto", "100vh", "100vh"]}
         justifyContent="center"

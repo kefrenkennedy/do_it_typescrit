@@ -16,14 +16,19 @@ export const Header = () => {
         paddingY="2"
       >
         <Flex align="center">
-          <Image src={Logo} />
+          <Image
+            src={Logo}
+            minWidth="50px"
+            maxWidth="150px"
+            w={["10vw", "5vw", "10vw", "5vw"]}
+          />
           <Heading ml="4" size="lg">
             Dashboard
           </Heading>
-              </Flex>
-              <Center ml="auto" onClick={onToggle} as="button" fontSize="2rem">
-                  <FaTh color={theme.colors.gray[300]} />
-              </Center>
+        </Flex>
+        <Center ml="auto" onClick={onToggle} as="button" fontSize="2rem">
+          <FaTh color={theme.colors.gray[300]} />
+        </Center>
         <Menu isOpen={isOpen} onClose={onClose} />
       </Flex>
     </>

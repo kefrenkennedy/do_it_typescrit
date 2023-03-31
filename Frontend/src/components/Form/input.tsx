@@ -8,8 +8,6 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 
-
-
 import {
   useState,
   useEffect,
@@ -20,7 +18,6 @@ import {
 } from "react";
 
 import { IconType } from "react-icons/lib";
-
 
 interface InputProps extends ChakraInputProps {
   name: string;
@@ -70,7 +67,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
       {!!label && <FormLabel color="gray.400">{label}</FormLabel>}
       <InputGroup flexDirection="column">
         {Icon && (
-          <InputLeftElement color={inputVariation[variation]} mt="2.5">
+          <InputLeftElement color={inputVariation[variation]} mt="1px">
             <Icon />
           </InputLeftElement>
         )}
@@ -88,10 +85,9 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
           _hover={{ bgColor: "gray.100" }}
           _placeholder={{ color: "gray.300" }}
           _focus={{
-            bg: "gray.100"
+            bg: "gray.100",
           }}
-          size="lg"
-          h="60px"
+          size="md"
           ref={ref}
           {...rest}
         />
