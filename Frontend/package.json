@@ -1,5 +1,5 @@
 {
-  "name": "my-react-app",
+  "name": "do_it_typescript",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,29 +8,29 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "@chakra-ui/core": "^0.8.0",
-    "@chakra-ui/react": "^2.5.2",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@hookform/resolvers": "^3.0.0",
-    "@types/react-router-dom": "^5.3.3",
-    "axios": "^1.3.4",
-    "emotion": "^11.0.0",
-    "framer-motion": "^10.8.5",
-    "jwt-decode": "^3.1.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-hook-form": "^7.43.7",
-    "react-icons": "^4.8.0",
-    "react-router-dom": "5",
-    "yup": "^1.0.2"
-  },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/react": "^2.5.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@hookform/resolvers": "^3.0.0",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.3.4",
+    "emotion": "^11.0.0",
+    "framer-motion": "^10.10.0",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
+    "react-router-dom": "5",
+    "yup": "^1.0.2"
   }
 }

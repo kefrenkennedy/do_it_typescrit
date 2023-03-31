@@ -25,8 +25,8 @@ interface CardProps {
 }
 
 export const Card = ({ task, onClick }: CardProps) => {
-  const { deleteTask, updateTask } = useTasks();
-  const { accessToken, user } = useAuth();
+  const { deleteTask, updateTask } = useTasks(); // calling custom tasks context hook
+  const { accessToken, user } = useAuth(); // calling custom auth context hook
 
   return (
     <>
@@ -53,9 +53,11 @@ export const Card = ({ task, onClick }: CardProps) => {
               borderRadius="5px"
               borderColor="gray.200"
               bgColor="white"
-              onClick={() => deleteTask(task.id, accessToken)}
+              onClick={() => deleteTask(task.id, accessToken)} // calling deleteTask function with task id and access token
             >
-              <FaTrash color={theme.colors.gray[300]} />
+              <FaTrash
+                color={theme.colors.gray[300]} // displaying trash icon with custom color
+              />
             </Center>
             <Center
               as="button"
@@ -65,18 +67,22 @@ export const Card = ({ task, onClick }: CardProps) => {
               borderRadius="5px"
               borderColor="gray.200"
               bgColor="white"
-              onClick={() => updateTask(task.id, user.id, accessToken)}
+              onClick={() => updateTask(task.id, user.id, accessToken)} // calling updateTask function with task id, user id, and access token
             >
               <FaCheck color="gray.200" />
             </Center>
           </HStack>
         </Flex>
-        <Box w="100%" mt="4" onClick={() => onClick(task)}>
+        <Box
+          w="100%"
+          mt="4"
+          onClick={() => onClick(task)} // calling onClick function with task when box is clicked
+        >
           <Text>{task.description}</Text>
           <Progress
             colorScheme="purple"
             mt="2.5"
-            value={task.completed ? 100 : 10}
+            value={task.completed ? 100 : 10} // setting progress bar value based on task completion status
           />
           <Text color="gray.200" mt="3">
             07 March 2021

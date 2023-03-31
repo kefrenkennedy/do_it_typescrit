@@ -6,7 +6,10 @@ export const LoginInfo = () => (
     <Image
       src={LogoSecondary}
       alt="doit"
-      boxSize={["120px", "120px", "150px", "150px"]}
+      minWidth="100px"
+      maxWidth="200px"
+      w={["21vw", "15vw", "21vw", "15vw"]}
+      /* boxSize={["120px", "120px", "150px", "150px"]} */
     />
     <Heading mt="4" as="h1">
       O jeito fácil, grátis
