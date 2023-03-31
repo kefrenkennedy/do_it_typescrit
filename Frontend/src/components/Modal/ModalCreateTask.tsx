@@ -119,7 +119,7 @@ export const ModalCreateTask = ({ isOpen, onClose }: ModalCreateTaskProps) => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      ;
+      
     </>
   );
 };

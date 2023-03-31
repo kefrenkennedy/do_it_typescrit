@@ -46,11 +46,11 @@ export const ModalTaskDetail = ({
 }: ModalTaskDetailProps) => {
   const { accessToken, user } = useAuth();
   const { deleteTask, updateTask } = useTasks();
-    
-    const handleDelete = () => { 
-        deleteTask(task.id, accessToken)
-        onClose();
-    }
+
+  const handleDelete = () => {
+    deleteTask(task.id, accessToken);
+    onClose();
+  };
 
   return (
     <>
@@ -121,7 +121,6 @@ export const ModalTaskDetail = ({
           </Box>
         </ModalContent>
       </Modal>
-      ;
     </>
   );
 };
