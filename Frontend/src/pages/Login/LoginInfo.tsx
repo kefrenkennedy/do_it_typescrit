@@ -12,11 +12,11 @@ export const LoginInfo = () => (
       /* boxSize={["120px", "120px", "150px", "150px"]} */
     />
     <Heading mt="4" as="h1">
-      O jeito fácil, grátis
+      The easy, free,
     </Heading>
     <Text maxW="350px">
-      Flexível e atrativo de gerenciar
-      <b> seus projetos em uma única plataforma</b>
+      Flexible and attractive way to manage
+      <b> your projects on a single platform. </b>
     </Text>
   </Grid>
 );

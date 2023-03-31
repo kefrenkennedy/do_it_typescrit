@@ -37,27 +37,28 @@ export const LoginForm = ({
       w={["100%", "100%", "40%", "40%"]}
       mt={["4", "4", "0"]}
     >
-      <Heading size="lg">Bem vindo de volta!</Heading>
+      <Heading size="lg">Welcome!</Heading>
       <VStack mt="6" spacing="5">
         <Box w="100%">
           <Input
-            placeholder="Digite seu login"
+            placeholder="Type your Email"
             icon={FaEnvelope}
-            label="Login"
+            label="Email"
             type="email"
             error={errors.email}
             {...register("email")}
           />
           {!errors.email && (
             <Text ml="1" mt="1" color="gray.300">
-              Exemplo: nome@email.com
+              Example: name@email.com
             </Text>
           )}
         </Box>
 
         <Input
-          placeholder="Digite sua senha"
+          placeholder="Type your Password"
           icon={FaLock}
+          label="Password"
           error={errors.password}
           type="password"
           {...register("password")}
@@ -74,9 +75,9 @@ export const LoginForm = ({
           _hover={{ background: "purple.900" }}
           type="submit"
         >
-          Entrar
+          Login
         </Button>
-        <Text color="gray.400">Ainda não possui uma conta?</Text>
+        <Text color="gray.400">Don't have an account?</Text>
         <Button
           bg="gray.100"
           w="100%"
@@ -86,7 +87,7 @@ export const LoginForm = ({
           onClick={() => history.push("/signup")}
           _hover={{ background: "gray.200" }}
         >
-          Cadastrar
+          Sign Up
         </Button>
       </VStack>
     </Grid>

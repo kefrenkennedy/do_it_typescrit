@@ -8,7 +8,7 @@ import {
   InputGroup,
 } from "@chakra-ui/react";
 
-import { FaExclamation } from "react-icons/fa";
+
 
 import {
   useState,
@@ -20,7 +20,7 @@ import {
 } from "react";
 
 import { IconType } from "react-icons/lib";
-import { FieldError, FieldErrors } from "react-hook-form";
+
 
 interface InputProps extends ChakraInputProps {
   name: string;

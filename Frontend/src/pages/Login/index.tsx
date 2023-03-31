@@ -9,8 +9,8 @@ import { LoginInfo } from "./LoginInfo";
 import { LoginForm } from "./LoginForm";
 
 const signInSchema = yup.object().shape({
-  email: yup.string().required("Email obrigatório").email("Email inválido"),
-  password: yup.string().required("Senha obrigatória"),
+  email: yup.string().required("Email required.").email("Invalid Email."),
+  password: yup.string().required("Password required."),
 });
 
 export interface SignInData {
@@ -39,33 +39,35 @@ export const Login = () => {
   };
 
   return (
-    <Flex
-      padding={["10px 15px", "10 15px", "0px", "0px"]}
-      alignItems="center"
-      height={["auto", "auto", "100vh", "100vh"]}
-      justifyContent="center"
-      bgGradient={[
-        "linear(to-b, purple.800 65%, white 35%)",
-        "linear(to-b, purple.800 65%, white 35%)",
-        "linear(to-r, purple.800 65%, white 35%)",
-        "linear(to-r, purple.800 65%, white 35%)",
-      ]}
-      color="white"
-    >
+    <>
       <Flex
-        w={["100%", "100%", "90%", "65%"]}
-        justifyContent="center"
-        flexDirection={["column", "column", "row", "row"]}
+        padding={["10px 15px", "10 15px", "0px", "0px"]}
         alignItems="center"
+        height={["auto", "auto", "100vh", "100vh"]}
+        justifyContent="center"
+        bgGradient={[
+          "linear(to-b, purple.800 65%, white 35%)",
+          "linear(to-b, purple.800 65%, white 35%)",
+          "linear(to-r, purple.800 65%, white 35%)",
+          "linear(to-r, purple.800 65%, white 35%)",
+        ]}
+        color="white"
       >
-        <LoginInfo />
-        <LoginForm
-          errors={errors}
-          handleSignIn={handleSubmit(handleSignIn)}
-          loading={loading}
-          register={register}
-        />
+        <Flex
+          w={["100%", "100%", "90%", "65%"]}
+          justifyContent="center"
+          flexDirection={["column", "column", "row", "row"]}
+          alignItems="center"
+        >
+          <LoginInfo />
+          <LoginForm
+            errors={errors}
+            handleSignIn={handleSubmit(handleSignIn)}
+            loading={loading}
+            register={register}
+          />
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
