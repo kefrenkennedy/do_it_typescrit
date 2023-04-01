@@ -5,6 +5,7 @@ import cors from "cors";
 import errorMiddleware from "./middlewares/errorMiddleware";
 import userRoutes from "./routes/userRoutes";
 import authRotes from "./routes/authRoutes";
+import taskRoutes from "./routes/taskRoutes";
 
 class App {
   server: any;
@@ -31,6 +32,7 @@ class App {
   async routes() {
     this.server.use("/login", authRotes);
     this.server.use("/user", userRoutes);
+    this.server.use("/dashboard", taskRoutes);
     this.server.use(errorMiddleware);
   }
 }

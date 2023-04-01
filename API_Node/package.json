@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": false,
   "exports": "./src/server.ts",
-  "engines": {
-    "node": "16.14.2"
-  },
   "main": "./scr/server",
   "repository": {
     "type": "git",

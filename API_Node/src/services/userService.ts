@@ -1,8 +1,6 @@
 import { hash } from 'bcryptjs';
 import {
   IUserCreate,
-  IUserDelete,
-  IUserEdit,
 } from '../interfaces/index';
 import prismaConnect from '../utils/databaseClient/index';
 import {
@@ -13,12 +11,7 @@ import authService from './authService';
 import 'dotenv/config';
 
 class userService {
-  async create({
-    ip,
-    nome,
-    email,
-    senha,
-  }: IUserCreate) {
+  async create({ ip, name, email, password }: IUserCreate) {
     const verifyUserEmail =
       await prismaConnect.users.findUnique({
         where: { email },
@@ -30,27 +23,29 @@ class userService {
       );
     }
 
-    const hashedSenha = await hash(senha.toString(), 10);
+    const hashedpassword = await hash(
+      password.toString(),
+      10
+    );
 
     const user = await prismaConnect.users.create({
       data: {
         ip,
-        nome,
+        name,
         email,
-        senha: hashedSenha,
-        isActive: true,
+        password: hashedpassword,
       },
     });
 
     const accessToken = await authService.login(
       email,
-      senha,
+      password,
       ip
     );
 
     await prismaConnect.userSessions.create({
       data: {
-        UserId: user.id,
+        userId: user.id,
         ip,
         type: 'user: create user',
       },
@@ -60,58 +55,6 @@ class userService {
       user,
       accessToken,
     };
-  }
-
-  async readAll() {
-    const AllUsers = await prismaConnect.users.findMany();
-    if (!AllUsers) {
-      throw new NotFoundError('No User Found.');
-    }
-    return AllUsers;
-  }
-
-  async update({
-    userId,
-    nome,
-    email,
-    senha,
-
-  }: IUserEdit) {
-    const id = userId;
-
-    const updateUser = await prismaConnect.users.update({
-      where: {
-        id,
-      },
-      data: {
-        nome,
-        email,
-        senha,
-      },
-    });
-
-    return { updateUser };
-  }
-
-  async delete({ userId }: IUserDelete) {
-    const user = await prismaConnect.users.findUnique({
-      where: { id: userId },
-    });
-
-    if (!user?.isActive) {
-      throw new NotFoundError('User not found.');
-    }
-
-    await prismaConnect.users.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        isActive: false,
-      },
-    });
-
-    return { response: 'User deleted with success.' };
   }
 }
 

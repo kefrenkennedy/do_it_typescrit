@@ -18,9 +18,9 @@ export const Header = () => {
         <Flex align="center">
           <Image
             src={Logo}
-            minWidth="50px"
-            maxWidth="150px"
-            w={["10vw", "5vw", "10vw", "5vw"]}
+            minWidth="40px"
+            maxWidth="140px"
+            w={["5vw", "1vw", "5vw", "1vw"]}
           />
           <Heading ml="4" size="lg">
             Dashboard

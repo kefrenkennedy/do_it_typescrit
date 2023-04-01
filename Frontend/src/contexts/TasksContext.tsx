@@ -53,11 +53,12 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 
   const loadTasks = useCallback(async (userId: string, accessToken: string) => {
     try {
-      const response = await api.get(`/tasks?userId=${userId}`, {
+      const response = await api.get("/dashboard", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
+      setTasks(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -66,12 +67,12 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
   const createTask = useCallback(
     async (data: Omit<Task, "id">, accessToken: string) => {
       api
-        .post("tasks", data, {
+        .post("dashboard", data, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
-        .then((res: AxiosResponse<Task>) =>
-          setTasks((oldTasks) => [...oldTasks, res.data])
-        )
+        .then((res: AxiosResponse<Task>) => {
+          setTasks((oldTasks) => [...oldTasks, res.data]);
+        })
         .catch((err) => console.log(err));
     },
     []

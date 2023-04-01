@@ -12,6 +12,10 @@ interface Task {
   completed: boolean;
 }
 
+interface TaskData {
+  data: Task;
+}
+
 interface TaskListProps {
   loading: boolean;
   tasks: Task[];
@@ -19,7 +23,7 @@ interface TaskListProps {
 }
 
 export const TaskList = ({ loading, tasks, handleClick }: TaskListProps) => {
-  const {  searchTask } = useTasks();
+  const { searchTask } = useTasks();
 
   return (
     <>

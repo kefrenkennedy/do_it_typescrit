@@ -25,8 +25,8 @@ interface CardProps {
 }
 
 export const Card = ({ task, onClick }: CardProps) => {
-  const { deleteTask, updateTask } = useTasks(); // calling custom tasks context hook
-  const { accessToken, user } = useAuth(); // calling custom auth context hook
+  const { deleteTask, updateTask } = useTasks(); 
+  const { accessToken, user } = useAuth(); 
 
   return (
     <>

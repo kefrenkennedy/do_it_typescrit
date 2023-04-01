@@ -1,59 +1,38 @@
 import {
   ITaskCreate,
   ITaskDelete,
-  ITaskEdit,
 } from '../interfaces/index';
 import prismaConnect from '../utils/databaseClient/index';
-import { NotFoundError } from '../utils/error/index';
 
 import 'dotenv/config';
 
 class taskService {
-  async create({ title, description }: ITaskCreate) {
+  async create({
+    userId,
+    title,
+    description,
+  }: ITaskCreate) {
     const task = await prismaConnect.tasks.create({
       data: {
         title,
         description,
+        completed: false,
+        userId,
       },
     });
 
-    return {
-      task,
-    };
+    return task;
   }
 
-  async readAll() {
-    const AllTasks = await prismaConnect.tasks.findMany();
-    if (!AllTasks) {
-      throw new NotFoundError('No Task Found');
-    }
-    return AllTasks;
-  }
-
-  async update({ id, title, description, completed }: ITaskEdit) {
-    const updateTask = await prismaConnect.tasks.update({
-      where: {
-        id,
-      },
-      data: {
-        title,
-          description,
-        completed,
-      },
+  async list(userId: string) {
+    const tasks = await prismaConnect.tasks.findMany({
+      where: { userId },
     });
 
-    return { updateTask };
+    return tasks;
   }
 
   async delete({ taskId }: ITaskDelete) {
-    const task = await prismaConnect.tasks.findUnique({
-      where: { id: taskId },
-    });
-
-    if (!task?.isActive) {
-      throw new NotFoundError('Task not found');
-    }
-
     await prismaConnect.tasks.delete({
       where: {
         id: taskId,

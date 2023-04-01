@@ -4,19 +4,19 @@ import { UnauthorizedError } from '../utils/error/index';
 import jwt from 'jsonwebtoken';
 
 class AuthService {
-  async login(email: string, senha: string, ip: string) {
+  async login(email: string, password: string, ip: string) {
     const findUser = await prismaConnect.users.findUnique({
       where: { email },
     });
-
-    if (!findUser || !findUser.isActive) {
+    console.log(findUser);
+    if (!findUser) {
       throw new UnauthorizedError('Invalid credentials');
     }
 
-    if (!compareSync(senha, findUser.senha)) {
+    if (!compareSync(password, findUser.password)) {
       await prismaConnect.userSessions.create({
         data: {
-          UserId: findUser!.id,
+          userId: findUser!.id,
           ip,
           type: 'user: login/wrong password',
         },
@@ -35,13 +35,20 @@ class AuthService {
 
     await prismaConnect.userSessions.create({
       data: {
-        UserId: findUser.id,
+        userId: findUser.id,
         ip,
         type: 'user: login',
       },
     });
 
-    return token;
+    return {
+      token,
+      user: {
+        name: findUser.name,
+        email: findUser.email,
+        id: findUser.id,
+      },
+    };
   }
 }
 

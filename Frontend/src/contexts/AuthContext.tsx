@@ -50,6 +50,7 @@ const useAuth = () => {
 const AuthProvider = ({ children }: AuthProviderProps) => {
   const [data, setData] = useState<AuthState>(() => {
     const accessToken = localStorage.getItem("@Doit:accessToken");
+
     const user = localStorage.getItem("@Doit:user");
 
     if (accessToken && user) {

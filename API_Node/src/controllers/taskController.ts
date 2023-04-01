@@ -3,60 +3,35 @@ import { Request, Response } from 'express';
 import {
   ITaskCreate,
   ITaskDelete,
-  ITaskEdit,
 } from '../interfaces/index';
+
 import taskService from '../services/taskService';
 
 class taskController {
   async create(req: Request, res: Response) {
-    const {
-      id,
-      title,
-      description,
-      userId,
-      completed,
-    }: ITaskCreate = req.body;
+    const { id: userId } = req.user;
 
-    const data = await taskService.create({
-      id,
-      title,
-      description,
-      userId,
-      completed,
-    });
-
-    return res.status(201).json({
-      data,
-    });
-  }
-
-  async update(req: Request, res: Response) {
-    const {       id,
-        title,
-        description,
-        completed, }: ITaskEdit =
+    const { title, description, completed }: ITaskCreate =
       req.body;
 
-    const userId = req.user.id;
+    console.log(userId);
 
-    const data = await taskService.update({
-      id,
+    const data = await taskService.create({
       title,
       description,
+      userId,
       completed,
     });
 
-    return res.status(200).json({
-      data,
-    });
+    return res.status(201).json(data);
   }
 
-  async readAll(req: Request, res: Response) {
-    const data = await taskService.readAll();
+  async list(req: Request, res: Response) {
+    const { id: userId } = req.user;
 
-    return res.status(200).json({
-      data,
-    });
+    const data = await taskService.list(userId);
+
+    return res.status(201).json(data);
   }
 
   async delete(req: Request, res: Response) {

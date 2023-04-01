@@ -65,7 +65,7 @@ export const SignUp = () => {
   const handleSignUp = ({ name, email, password }: SignUpData) => {
     setLoading(true);
     api
-      .post("/register", { name, email, password })
+      .post("/user", { name, email, password })
       .then((res) => {
         setLoading(false);
         onModalSuccessOpen();
