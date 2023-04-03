@@ -19,6 +19,7 @@ export interface ITaskCreate {
   description: string;
   userId: string;
   completed: false;
+  createdAt: string;
 }
 
 export interface ITaskDelete {

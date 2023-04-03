@@ -4,17 +4,9 @@ import { SearchBox } from "../../components/Form/SearchBox";
 import { Header } from "../../components/Header";
 import { CardSkeleton } from "../../components/Skeleton/CardSkeleton";
 import { useTasks } from "../../contexts/TasksContext";
+import { Task } from "../../interfaces";
 
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  completed: boolean;
-}
 
-interface TaskData {
-  data: Task;
-}
 
 interface TaskListProps {
   loading: boolean;
@@ -23,7 +15,6 @@ interface TaskListProps {
 }
 
 export const TaskList = ({ loading, tasks, handleClick }: TaskListProps) => {
-
   return (
     <>
       <Box>

@@ -2,13 +2,8 @@ import { Box, Center, Heading, Skeleton, Stack, Text } from "@chakra-ui/react";
 import { SearchBox } from "../../components/Form/SearchBox";
 import { Header } from "../../components/Header";
 import { ModalTaskDetail } from "../../components/Modal/ModalTaskDetail";
+import { Task } from "../../interfaces";
 
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  completed: boolean;
-}
 
 interface NotFoundProps {
   isTaskDetailOpen: boolean;

@@ -23,13 +23,13 @@ taskRoutes.get(
 );
 
 taskRoutes.patch(
-  '/',
+  '/:taskId',
   tokenMiddleware.user,
   taskController.completeTask
 );
 
 taskRoutes.delete(
-  '/',
+  '/:taskId',
   tokenMiddleware.user,
   taskController.delete
 );

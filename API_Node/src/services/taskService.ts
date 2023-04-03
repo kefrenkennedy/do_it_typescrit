@@ -34,19 +34,16 @@ class taskService {
   }
 
   async listFiltered(userId: string, title: string) {
-    const tasks = await prismaConnect.tasks.findMany({
-      where: { userId },
+    const filteredTasks = await prismaConnect.tasks.findMany({
+      where: {
+        userId,
+        OR: [
+          { title: { contains: title } },
+          { description: { contains: title } },
+        ],
+      },
     });
-
-    const filteredTasks = tasks.map((task) => {
-      if (
-        task.title.includes(title) ||
-        task.description.includes(title)
-      ) {
-        return task;
-      }
-    });
-
+  
     return filteredTasks;
   }
 

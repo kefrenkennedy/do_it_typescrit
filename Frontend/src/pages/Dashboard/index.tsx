@@ -8,13 +8,9 @@ import { ModalTaskDetail } from "../../components/Modal/ModalTaskDetail";
 import { TaskList } from "./TasksList";
 import { FirstTask } from "./FirstTask";
 import { NotFound } from "./NotFound";
+import { Task } from "../../interfaces";
 
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+
 
 export const Dashboard = () => {
   const [loading, setLoading] = useState(true);

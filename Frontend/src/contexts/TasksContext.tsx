@@ -18,14 +18,22 @@ interface Task {
   description: string;
   userId: string;
   completed: boolean;
+  createdAt?: string;
 }
 
 interface TaskContextData {
   tasks: Task[];
   createTask: (data: Omit<Task, "id">, accessToken: string) => Promise<void>;
+  updateTask: (
+    updatedTitle: string,
+    updatedDescription: string,
+    taskId: string,
+    userId: string,
+    accessToken: string
+  ) => Promise<void>;
   loadTasks: (userId: string, accessToken: string) => Promise<void>;
   deleteTask: (taskId: string, accessToken: string) => Promise<void>;
-  updateTask: (
+  completeTask: (
     taskId: string,
     userId: string,
     accessToken: string
@@ -93,7 +101,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
     [tasks]
   );
 
-  const updateTask = useCallback(
+  const completeTask = useCallback(
     async (taskId: string, userId: string, accessToken: string) => {
       await api
         .patch(
@@ -111,6 +119,47 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
             task.completed = true;
             setTasks([...filteredTasks, task]);
           }
+        })
+        .catch((err) => console.log(err));
+    },
+    [tasks]
+  );
+
+  const updateTask = useCallback(
+    async (
+      updatedTitle: string,
+      updatedDescription: string,
+      taskId: string,
+      userId: string,
+      accessToken: string
+    ) => {
+      const updatedFields: { title?: string; description?: string } = {};
+      if (updatedTitle) {
+        updatedFields.title = updatedTitle;
+      }
+      if (updatedDescription) {
+        updatedFields.description = updatedDescription;
+      }
+      await api
+        .patch(
+          `/dashboard/${taskId}`,
+          { ...updatedFields, userId },
+          {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }
+        )
+        .then((res) => {
+          const updatedTasks = tasks.map((task) => {
+            if (task.id === taskId) {
+              return {
+                ...task,
+                title: updatedFields.title ?? task.title,
+                description: updatedFields.description ?? task.description,
+              };
+            }
+            return task;
+          });
+          setTasks(updatedTasks);
         })
         .catch((err) => console.log(err));
     },
@@ -153,6 +202,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
         createTask,
         loadTasks,
         deleteTask,
+        completeTask,
         updateTask,
         searchTask,
         notFound,

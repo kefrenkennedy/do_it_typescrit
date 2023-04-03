@@ -26,6 +26,7 @@ CREATE TABLE "tasks" (
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "completed" BOOLEAN NOT NULL DEFAULT false,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "userId" TEXT NOT NULL,
 
     CONSTRAINT "tasks_pkey" PRIMARY KEY ("id")

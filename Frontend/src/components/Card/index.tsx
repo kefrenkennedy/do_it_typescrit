@@ -7,16 +7,18 @@ import {
   Progress,
   Text,
 } from "@chakra-ui/react";
-import { FaCheck, FaTrash } from "react-icons/fa";
+import { FaCheck, FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTasks } from "../../contexts/TasksContext";
 import { theme } from "../../styles/theme";
+import { useState } from "react";
 
 interface Task {
   id: string;
   title: string;
   description: string;
   completed: boolean;
+  createdAt?: string;
 }
 
 interface CardProps {
@@ -25,8 +27,8 @@ interface CardProps {
 }
 
 export const Card = ({ task, onClick }: CardProps) => {
-  const { deleteTask, updateTask } = useTasks(); 
-  const { accessToken, user } = useAuth(); 
+  const { deleteTask, completeTask, updateTask } = useTasks();
+  const { accessToken, user } = useAuth();
 
   return (
     <>
@@ -53,11 +55,9 @@ export const Card = ({ task, onClick }: CardProps) => {
               borderRadius="5px"
               borderColor="gray.200"
               bgColor="white"
-              onClick={() => deleteTask(task.id, accessToken)} // calling deleteTask function with task id and access token
+              onClick={() => updateTask}
             >
-              <FaTrash
-                color={theme.colors.gray[300]} // displaying trash icon with custom color
-              />
+              <FaPencilAlt color={theme.colors.gray[300]} />
             </Center>
             <Center
               as="button"
@@ -67,25 +67,33 @@ export const Card = ({ task, onClick }: CardProps) => {
               borderRadius="5px"
               borderColor="gray.200"
               bgColor="white"
-              onClick={() => updateTask(task.id, user.id, accessToken)} // calling updateTask function with task id, user id, and access token
+              onClick={() => deleteTask(task.id, accessToken)}
+            >
+              <FaTrash color={theme.colors.gray[300]} />
+            </Center>
+            <Center
+              as="button"
+              w="30px"
+              h="30px"
+              borderWidth="1px"
+              borderRadius="5px"
+              borderColor="gray.200"
+              bgColor="white"
+              onClick={() => completeTask(task.id, user.id, accessToken)}
             >
               <FaCheck color="gray.200" />
             </Center>
           </HStack>
         </Flex>
-        <Box
-          w="100%"
-          mt="4"
-          onClick={() => onClick(task)} // calling onClick function with task when box is clicked
-        >
+        <Box w="100%" mt="4" onClick={() => onClick(task)}>
           <Text>{task.description}</Text>
           <Progress
             colorScheme="purple"
             mt="2.5"
-            value={task.completed ? 100 : 10} // setting progress bar value based on task completion status
+            value={task.completed ? 100 : 10}
           />
           <Text color="gray.200" mt="3">
-            07 March 2021
+            {task.createdAt}
           </Text>
         </Box>
       </Box>

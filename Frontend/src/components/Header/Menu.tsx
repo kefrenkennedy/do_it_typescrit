@@ -34,6 +34,13 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           >
             {user.name}
           </DrawerHeader>
+          <DrawerHeader
+            borderBottomWidth="1px"
+            borderColor="gray.50"
+            color="gray.400"
+          >
+            {user.email}
+          </DrawerHeader>
           <DrawerBody>
             <Flex
               align="center"

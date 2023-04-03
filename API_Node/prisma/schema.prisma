@@ -49,6 +49,8 @@ model Tasks {
 
   completed Boolean @default(false)
 
+  createdAt DateTime @default(now())
+
   user Users @relation(fields: [userId], references: [id])
   userId String
 

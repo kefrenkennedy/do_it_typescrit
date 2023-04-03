@@ -25,13 +25,7 @@ import {
 import { useAuth } from "../../contexts/AuthContext";
 import { useTasks } from "../../contexts/TasksContext";
 import { theme } from "../../styles/theme";
-
-interface Task {
-  id: string;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+import { Task } from "../../interfaces";
 
 interface ModalTaskDetailProps {
   isOpen: boolean;
@@ -45,7 +39,7 @@ export const ModalTaskDetail = ({
   task,
 }: ModalTaskDetailProps) => {
   const { accessToken, user } = useAuth();
-  const { deleteTask, updateTask } = useTasks();
+  const { deleteTask, completeTask, updateTask } = useTasks();
 
   const handleDelete = () => {
     deleteTask(task.id, accessToken);
@@ -87,7 +81,7 @@ export const ModalTaskDetail = ({
                 borderRadius="5px"
                 borderColor="gray.200"
                 bgColor="white"
-                onClick={() => updateTask(task.id, user.id, accessToken)}
+                onClick={() => completeTask(task.id, user.id, accessToken)}
               >
                 <FaCheck color="gray.200" />
               </Center>
@@ -116,7 +110,7 @@ export const ModalTaskDetail = ({
           <Box padding="6">
             <Progress colorScheme="purple" value={task.completed ? 100 : 10} />
             <Text color="gray.200" mt="3">
-              07 March 2021
+              {task.createdAt}
             </Text>
           </Box>
         </ModalContent>

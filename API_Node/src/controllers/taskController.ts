@@ -9,6 +9,29 @@ import {
 import taskService from '../services/taskService';
 import prismaConnect from 'utils/databaseClient';
 
+function formatDate(date: Date): string {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  const day = date.getDate().toString().padStart(2, '0');
+  const monthName = months[date.getMonth()];
+  const year = date.getFullYear().toString();
+
+  return `${day} ${monthName} ${year}`;
+}
+
 class taskController {
   async create(req: Request, res: Response) {
     const { id: userId } = req.user;
@@ -16,11 +39,14 @@ class taskController {
     const { title, description, completed }: ITaskCreate =
       req.body;
 
+    const createdAt = formatDate(new Date());
+
     const data = await taskService.create({
       title,
       description,
       userId,
       completed,
+      createdAt,
     });
 
     return res.status(201).json(data);
@@ -47,7 +73,8 @@ class taskController {
   }
 
   async completeTask(req: Request, res: Response) {
-    const taskId = req.params.taskId
+    const taskId = req.params.taskId;
+
     await taskService.completeTask({ taskId });
 
     return res
@@ -56,7 +83,8 @@ class taskController {
   }
 
   async delete(req: Request, res: Response) {
-    const { taskId }: ITaskDelete = req.body;
+    const taskId = req.params.taskId;
+
     await taskService.delete({ taskId });
 
     return res
