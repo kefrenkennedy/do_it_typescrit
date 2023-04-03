@@ -10,6 +10,10 @@ export interface IUserSessions {
   ip: string;
 }
 
+export interface ITaskComplete {
+  taskId: string;
+}
+
 export interface ITaskCreate {
   title: string;
   description: string;

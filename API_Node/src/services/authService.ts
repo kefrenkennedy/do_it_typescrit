@@ -8,7 +8,7 @@ class AuthService {
     const findUser = await prismaConnect.users.findUnique({
       where: { email },
     });
-    console.log(findUser);
+
     if (!findUser) {
       throw new UnauthorizedError('Invalid credentials');
     }

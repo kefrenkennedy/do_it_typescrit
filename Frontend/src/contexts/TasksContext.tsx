@@ -81,7 +81,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
   const deleteTask = useCallback(
     async (taskId: string, accessToken: string) => {
       await api
-        .delete(`/tasks/${taskId}`, {
+        .delete(`/dashboard/${taskId}`, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((_) => {
@@ -97,7 +97,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
     async (taskId: string, userId: string, accessToken: string) => {
       await api
         .patch(
-          `/tasks/${taskId}`,
+          `/dashboard/${taskId}`,
           { completed: true, userId },
           {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -119,17 +119,29 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 
   const searchTask = useCallback(
     async (taskTitle: string, accessToken: string) => {
-      const response = await api.get(`/tasks?title_like=${taskTitle}`, {
+      const response = await api.get("/dashboard", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 
-      if (!response.data.length) {
-        setTaskNotFound(taskTitle);
-        return setNotFound(true);
-      }
+      const tasks: Task[] = [];
 
-      setNotFound(false);
-      setTasks(response.data);
+      const filteredTasks = response.data.map((task: Task) => {
+        if (
+          task.title.includes(taskTitle) ||
+          task.description.includes(taskTitle)
+        ) {
+          tasks.push(task);
+          setNotFound(false);
+          return setTasks(tasks);
+        }
+
+        if (!tasks.length) {
+          setTaskNotFound(taskTitle);
+          return setNotFound(true);
+        }
+      });
+
+      return filteredTasks;
     },
     []
   );

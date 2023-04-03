@@ -22,6 +22,10 @@ export const SearchBox = () => {
     searchTask(title, accessToken);
   };
 
+  const handleAllTasks = () => {
+    searchTask("", accessToken);
+  };
+
   const { register, handleSubmit } = useForm<SearchData>();
 
   return (
@@ -39,7 +43,7 @@ export const SearchBox = () => {
       >
         <Flex as="form" onSubmit={handleSubmit(handleSearch)}>
           <Input
-            placeholder="Pesquisar por tarefa"
+            placeholder="Search task"
             w={["100%", "100%", "35vw"]}
             {...register("title")}
           />
@@ -48,7 +52,7 @@ export const SearchBox = () => {
             as="button"
             ml="2"
             w="64px"
-            h="60px"
+            h="40px"
             fontSize="2xl"
             bg="purple.600"
           >
@@ -60,13 +64,27 @@ export const SearchBox = () => {
           color="white"
           paddingX="16"
           ml={["0", "0", "4"]}
-          h="60px"
+          h="40px"
           borderRadius="8px"
           onClick={onOpen}
           mt={["4", "4", "0"]}
           _hover={{ bg: "purple.600" }}
         >
-          Adicionar uma nova tarefa
+          Add new task
+        </Button>
+
+        <Button
+          bg="purple.500"
+          color="white"
+          paddingX="16"
+          ml={["0", "0", "4"]}
+          h="40px"
+          borderRadius="8px"
+          onClick={handleAllTasks}
+          mt={["4", "4", "0"]}
+          _hover={{ bg: "purple.600" }}
+        >
+          Show all tasks
         </Button>
       </Flex>
     </>

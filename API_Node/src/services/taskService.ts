@@ -1,4 +1,5 @@
 import {
+  ITaskComplete,
   ITaskCreate,
   ITaskDelete,
 } from '../interfaces/index';
@@ -30,6 +31,36 @@ class taskService {
     });
 
     return tasks;
+  }
+
+  async listFiltered(userId: string, title: string) {
+    const tasks = await prismaConnect.tasks.findMany({
+      where: { userId },
+    });
+
+    const filteredTasks = tasks.map((task) => {
+      if (
+        task.title.includes(title) ||
+        task.description.includes(title)
+      ) {
+        return task;
+      }
+    });
+
+    return filteredTasks;
+  }
+
+  async completeTask({ taskId }: ITaskComplete) {
+    const completedTask = await prismaConnect.tasks.update({
+      where: {
+        id: taskId,
+      },
+      data: {
+        completed: true,
+      },
+    });
+
+    return completedTask;
   }
 
   async delete({ taskId }: ITaskDelete) {

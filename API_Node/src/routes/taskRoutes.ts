@@ -16,6 +16,18 @@ taskRoutes.get(
   taskController.list
 );
 
+taskRoutes.get(
+  '/',
+  tokenMiddleware.user,
+  taskController.listFiltered
+);
+
+taskRoutes.patch(
+  '/',
+  tokenMiddleware.user,
+  taskController.completeTask
+);
+
 taskRoutes.delete(
   '/',
   tokenMiddleware.user,

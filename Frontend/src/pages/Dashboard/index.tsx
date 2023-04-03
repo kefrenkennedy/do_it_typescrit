@@ -51,15 +51,30 @@ export const Dashboard = () => {
 
   return (
     <>
-      <ModalTaskDetail
-        isOpen={isTaskDetailOpen}
-        onClose={onTaskDetailClose}
-        task={selectedTask}
-      />
-      {!loading && !tasks.length ? (
-        <FirstTask />
+      {notFound ? (
+        <NotFound
+          isTaskDetailOpen={isTaskDetailOpen}
+          onTaskDetailClose={onTaskDetailClose}
+          selectedTask={selectedTask}
+          taskNotFound={taskNotFound}
+        />
       ) : (
-        <TaskList handleClick={handleClick} loading={loading} tasks={tasks} />
+        <>
+          <ModalTaskDetail
+            isOpen={isTaskDetailOpen}
+            onClose={onTaskDetailClose}
+            task={selectedTask}
+          />
+          {!loading && !tasks.length ? (
+            <FirstTask />
+          ) : (
+            <TaskList
+              handleClick={handleClick}
+              loading={loading}
+              tasks={tasks}
+            />
+          )}
+        </>
       )}
     </>
   );

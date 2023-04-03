@@ -23,7 +23,6 @@ interface TaskListProps {
 }
 
 export const TaskList = ({ loading, tasks, handleClick }: TaskListProps) => {
-  const { searchTask } = useTasks();
 
   return (
     <>
