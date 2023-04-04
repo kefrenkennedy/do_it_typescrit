@@ -6,12 +6,15 @@ import { useTasks } from "../../contexts/TasksContext";
 import { theme } from "../../styles/theme";
 import { ModalCreateTask } from "../Modal/ModalCreateTask";
 import { Input } from "./input";
+import { ModalUpdateTask } from "../Modal/ModalUpdateTask";
 
 interface SearchData {
   title: string;
 }
 
 export const SearchBox = () => {
+
+
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const { searchTask } = useTasks();
@@ -30,6 +33,7 @@ export const SearchBox = () => {
 
   return (
     <>
+
       <ModalCreateTask isOpen={isOpen} onClose={onClose} />
       <Flex
         mt="6"

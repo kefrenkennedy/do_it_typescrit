@@ -2,6 +2,7 @@ import {
   ITaskComplete,
   ITaskCreate,
   ITaskDelete,
+  ITaskUpdate,
 } from '../interfaces/index';
 import prismaConnect from '../utils/databaseClient/index';
 
@@ -34,17 +35,36 @@ class taskService {
   }
 
   async listFiltered(userId: string, title: string) {
-    const filteredTasks = await prismaConnect.tasks.findMany({
+    const filteredTasks =
+      await prismaConnect.tasks.findMany({
+        where: {
+          userId,
+          OR: [
+            { title: { contains: title } },
+            { description: { contains: title } },
+          ],
+        },
+      });
+
+    return filteredTasks;
+  }
+
+  async updateTask({
+    taskId,
+    title,
+    description,
+  }: ITaskUpdate) {
+    const completedTask = await prismaConnect.tasks.update({
       where: {
-        userId,
-        OR: [
-          { title: { contains: title } },
-          { description: { contains: title } },
-        ],
+        id: taskId,
+      },
+      data: {
+        title: title,
+        description: description,
       },
     });
-  
-    return filteredTasks;
+
+    return completedTask;
   }
 
   async completeTask({ taskId }: ITaskComplete) {

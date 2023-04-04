@@ -35,6 +35,10 @@ interface AuthContextData {
   signOut: () => void;
 }
 
+interface DeleteAccount {
+userId: string;
+}
+
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const useAuth = () => {
@@ -75,6 +79,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     localStorage.removeItem("@Doit:user");
     setData({} as AuthState);
   }, []);
+
 
   return (
     <AuthContext.Provider

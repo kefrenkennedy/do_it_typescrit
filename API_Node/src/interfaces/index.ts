@@ -21,6 +21,11 @@ export interface ITaskCreate {
   completed: false;
   createdAt: string;
 }
+export interface ITaskUpdate {
+  title?: string;
+  description?: string;
+  taskId: string;
+}
 
 export interface ITaskDelete {
   taskId: string;

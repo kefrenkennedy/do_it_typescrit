@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { FiLogOut } from "react-icons/fi";
+import { FaTrash } from "react-icons/fa";
 
 interface MenuProps {
   isOpen: boolean;
@@ -20,7 +21,7 @@ interface MenuProps {
 }
 
 export const Menu = ({ isOpen, onClose }: MenuProps) => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, deleteAccount} = useAuth();
 
   return (
     <>
@@ -43,6 +44,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           </DrawerHeader>
           <DrawerBody>
             <Flex
+              mb="10px"
               align="center"
               onClick={signOut}
               _hover={{ cursor: "pointer" }}
@@ -62,6 +64,29 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
                 </Heading>
                 <Text color="gray.300" fontSize="small">
                   Logout now
+                </Text>
+              </Box>
+            </Flex>
+            <Flex
+              align="center"
+              onClick={deleteAccount}
+              _hover={{ cursor: "pointer" }}
+            >
+              <Center
+                w="60px"
+                h="50px"
+                bg="red.600"
+                fontSize="2xl"
+                borderRadius="md"
+              >
+                <FaTrash color={theme.colors.white} />
+              </Center>
+              <Box ml="4">
+                <Heading as="h2" fontSize="lg">
+                  Delete Account
+                </Heading>
+                <Text color="gray.300" fontSize="small">
+                  Delete now
                 </Text>
               </Box>
             </Flex>

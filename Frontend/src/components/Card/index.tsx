@@ -6,12 +6,14 @@ import {
   HStack,
   Progress,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { FaCheck, FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useAuth } from "../../contexts/AuthContext";
 import { useTasks } from "../../contexts/TasksContext";
 import { theme } from "../../styles/theme";
 import { useState } from "react";
+import { ModalUpdateTask } from "../Modal/ModalUpdateTask";
 
 interface Task {
   id: string;
@@ -29,9 +31,19 @@ interface CardProps {
 export const Card = ({ task, onClick }: CardProps) => {
   const { deleteTask, completeTask, updateTask } = useTasks();
   const { accessToken, user } = useAuth();
+  const {
+    isOpen: isOpenUpdate,
+    onClose: onCloseUpdate,
+    onOpen: onOpenUpdate,
+  } = useDisclosure();
 
   return (
     <>
+      <ModalUpdateTask
+        isOpen={isOpenUpdate}
+        onClose={onCloseUpdate}
+        task={task}
+      />
       <Box
         cursor="pointer"
         _hover={{ transform: "translateY(-7px)", borderColor: "gray.100" }}
@@ -55,7 +67,7 @@ export const Card = ({ task, onClick }: CardProps) => {
               borderRadius="5px"
               borderColor="gray.200"
               bgColor="white"
-              onClick={() => updateTask}
+              onClick={() => onOpenUpdate()}
             >
               <FaPencilAlt color={theme.colors.gray[300]} />
             </Center>

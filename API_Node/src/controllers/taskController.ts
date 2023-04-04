@@ -82,6 +82,22 @@ class taskController {
       .json({ message: 'completed task successfully' });
   }
 
+  async updateTask(req: Request, res: Response) {
+    const taskId = req.params.taskId;
+
+    const { title, description } = req.body;
+
+    await taskService.updateTask({
+      taskId,
+      title,
+      description,
+    });
+
+    return res
+      .status(200)
+      .json({ message: 'task updated successfully' });
+  }
+
   async delete(req: Request, res: Response) {
     const taskId = req.params.taskId;
 

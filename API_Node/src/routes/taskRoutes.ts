@@ -25,7 +25,7 @@ taskRoutes.get(
 taskRoutes.patch(
   '/:taskId',
   tokenMiddleware.user,
-  taskController.completeTask
+  taskController.updateTask
 );
 
 taskRoutes.delete(
