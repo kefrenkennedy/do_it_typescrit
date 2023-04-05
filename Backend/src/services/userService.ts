@@ -1,6 +1,8 @@
 import { hash } from 'bcryptjs';
 import {
   IUserCreate,
+  IUserDelete,
+  IUserUpdate,
 } from '../interfaces/index';
 import prismaConnect from '../utils/databaseClient/index';
 import {
@@ -55,6 +57,45 @@ class userService {
       user,
       accessToken,
     };
+  }
+
+  async update({
+    userId,
+    name,
+    email,
+    password,
+  }: IUserUpdate) {
+    const id = userId;
+
+    const updateUser = await prismaConnect.users.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        email,
+        password,
+      },
+    });
+
+    return { updateUser };
+  }
+
+  async delete({ userId }: IUserDelete) {
+    const user = await prismaConnect.users.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new NotFoundError('User not found.');
+    }
+    await prismaConnect.users.delete({
+      where: {
+        id: userId,
+      },
+    });
+
+    return { response: 'User deleted with success.' };
   }
 }
 

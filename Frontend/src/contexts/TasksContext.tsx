@@ -105,7 +105,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
     async (taskId: string, userId: string, accessToken: string) => {
       await api
         .patch(
-          `/dashboard/${taskId}`,
+          `/dashboard/${taskId}/complete`,
           { completed: true, userId },
           {
             headers: { Authorization: `Bearer ${accessToken}` },

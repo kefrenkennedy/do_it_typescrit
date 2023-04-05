@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { theme } from "../styles/theme";
 import { AuthProvider } from "./AuthContext";
 import { TaskProvider } from "./TasksContext";
+import { UserProvider } from "./UserContext";
 
 interface AppProviderProps {
   children: ReactNode;
@@ -10,8 +11,10 @@ interface AppProviderProps {
 
 export const AppProvider = ({ children }: AppProviderProps) => (
   <AuthProvider>
-    <TaskProvider>
-      <ChakraProvider theme={theme}> {children}</ChakraProvider>
-    </TaskProvider>
+    <UserProvider>
+      <TaskProvider>
+        <ChakraProvider theme={theme}> {children}</ChakraProvider>
+      </TaskProvider>
+    </UserProvider>
   </AuthProvider>
 );

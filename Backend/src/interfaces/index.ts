@@ -5,6 +5,17 @@ export interface IUserCreate {
   email: string;
   password: string;
 }
+
+export interface IUserUpdate {
+  userId: string;
+  name?: string;
+  email?: string;
+  password?: string;
+}
+
+export interface IUserDelete { 
+  userId: string;
+}
 export interface IUserSessions {
   userId: string;
   ip: string;

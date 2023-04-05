@@ -50,8 +50,8 @@ model Tasks {
   completed Boolean @default(false)
 
   createdAt DateTime @default(now())
-
-  user Users @relation(fields: [userId], references: [id])
+  
+  user Users @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
   @@map("tasks")

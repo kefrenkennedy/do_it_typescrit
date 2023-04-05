@@ -35,10 +35,6 @@ interface AuthContextData {
   signOut: () => void;
 }
 
-interface DeleteAccount {
-userId: string;
-}
-
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const useAuth = () => {

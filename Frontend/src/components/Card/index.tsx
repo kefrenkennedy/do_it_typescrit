@@ -105,7 +105,12 @@ export const Card = ({ task, onClick }: CardProps) => {
             value={task.completed ? 100 : 10}
           />
           <Text color="gray.200" mt="3">
-            {task.createdAt}
+            {task.createdAt &&
+              new Date(task.createdAt).toLocaleDateString("en-US", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
           </Text>
         </Box>
       </Box>

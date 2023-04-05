@@ -10,10 +10,12 @@ import {
   Heading,
   Text,
   theme,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
+import { ModalDeleteUser } from "../Modal/ModalDeleteUser";
 
 interface MenuProps {
   isOpen: boolean;
@@ -21,10 +23,17 @@ interface MenuProps {
 }
 
 export const Menu = ({ isOpen, onClose }: MenuProps) => {
-  const { user, signOut, deleteAccount} = useAuth();
+  const { user, signOut } = useAuth();
+
+  const {
+    isOpen: isOpenDelete,
+    onClose: onCloseDelete,
+    onOpen: onOpenDelete,
+  } = useDisclosure();
 
   return (
     <>
+      <ModalDeleteUser isOpen={isOpenDelete} onClose={onCloseDelete} />
       <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
         <DrawerOverlay mt={["13vh", "8vh"]} />
         <DrawerContent ml="auto" mt="80px" w={["450px", "350px"]}>
@@ -69,7 +78,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
             </Flex>
             <Flex
               align="center"
-              onClick={deleteAccount}
+              onClick={() => onOpenDelete()}
               _hover={{ cursor: "pointer" }}
             >
               <Center

@@ -28,6 +28,12 @@ taskRoutes.patch(
   taskController.updateTask
 );
 
+taskRoutes.patch(
+  '/:taskId/complete',
+  tokenMiddleware.user,
+  taskController.completeTask
+);
+
 taskRoutes.delete(
   '/:taskId',
   tokenMiddleware.user,
