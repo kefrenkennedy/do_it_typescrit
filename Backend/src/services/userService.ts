@@ -21,11 +21,11 @@ class userService {
 
     if (verifyUserEmail) {
       throw new ConflitError(
-        'this email is already registered'
+        'This email is already registered'
       );
     }
 
-    const hashedpassword = await hash(
+    const hashedPassword = await hash(
       password.toString(),
       10
     );
@@ -35,7 +35,7 @@ class userService {
         ip,
         name,
         email,
-        password: hashedpassword,
+        password: hashedPassword,
       },
     });
 
@@ -57,6 +57,14 @@ class userService {
       user,
       accessToken,
     };
+  }
+
+  async readAll() {
+    const AllUsers = await prismaConnect.users.findMany();
+    if (!AllUsers) {
+      throw new NotFoundError('No User Found.');
+    }
+    return AllUsers;
   }
 
   async update({

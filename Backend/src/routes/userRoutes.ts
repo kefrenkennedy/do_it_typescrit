@@ -1,14 +1,23 @@
 import { Router } from 'express';
 import userController from '../controllers/userController';
 import tokenMiddleware from '../middlewares/tokenMiddleware';
+import {
+  createUserValidation,
+  updateUserValidation,
+} from 'validations/userValidation';
 
 const userRoutes = Router();
 
-userRoutes.post('/', userController.create);
+userRoutes.post(
+  '/',
+  createUserValidation,
+  userController.create
+);
 
 userRoutes.patch(
   '/:userId',
   tokenMiddleware.user,
+  updateUserValidation,
   userController.update
 );
 

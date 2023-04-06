@@ -1,5 +1,5 @@
 import { Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
-import { useForm, FormState } from "react-hook-form";
+import { useForm } from "react-hook-form";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";

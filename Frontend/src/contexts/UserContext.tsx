@@ -7,8 +7,6 @@ import {
 } from "react";
 
 import { api } from "../services/api";
-import { useAuth } from "./AuthContext";
-import { SignUpData } from "../pages/Signup";
 
 interface UserProviderProps {
   children: ReactNode;

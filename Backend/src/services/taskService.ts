@@ -1,3 +1,4 @@
+import { NotFoundError } from 'utils/error';
 import {
   ITaskComplete,
   ITaskCreate,
@@ -24,6 +25,15 @@ class taskService {
     });
 
     return task;
+  }
+
+  async readAllUsersTask() {
+    const allTasks =
+      await prismaConnect.tasks.findMany();
+    if (!allTasks) {
+      throw new NotFoundError('Tasks Not Found.');
+    }
+    return allTasks;
   }
 
   async list(userId: string) {

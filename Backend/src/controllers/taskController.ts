@@ -1,13 +1,10 @@
 import { Request, Response } from 'express';
 
-import {
-  ITaskComplete,
-  ITaskCreate,
-  ITaskDelete,
-} from '../interfaces/index';
+import { ITaskCreate } from '../interfaces/index';
 
 import taskService from '../services/taskService';
-import prismaConnect from 'utils/databaseClient';
+
+import { validationResult } from 'express-validator';
 
 function formatDate(date: Date): string {
   const months = [
@@ -34,6 +31,20 @@ function formatDate(date: Date): string {
 
 class taskController {
   async create(req: Request, res: Response) {
+    const errors = validationResult(req);
+
+    const response: any = [];
+
+    errors.array().forEach((obj) => {
+      if (obj.msg !== 'Invalid value') {
+        response.push(obj.msg);
+      }
+    });
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: response });
+    }
+
     const { id: userId } = req.user;
 
     const { title, description, completed }: ITaskCreate =
@@ -73,6 +84,20 @@ class taskController {
   }
 
   async completeTask(req: Request, res: Response) {
+    const errors = validationResult(req);
+
+    const response: any = [];
+
+    errors.array().forEach((obj) => {
+      if (obj.msg !== 'Invalid value') {
+        response.push(obj.msg);
+      }
+    });
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: response });
+    }
+
     const taskId = req.params.taskId;
 
     await taskService.completeTask({ taskId });
@@ -83,6 +108,20 @@ class taskController {
   }
 
   async updateTask(req: Request, res: Response) {
+    const errors = validationResult(req);
+
+    const response: any = [];
+
+    errors.array().forEach((obj) => {
+      if (obj.msg !== 'Invalid value') {
+        response.push(obj.msg);
+      }
+    });
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: response });
+    }
+
     const taskId = req.params.taskId;
 
     const { title, description } = req.body;
