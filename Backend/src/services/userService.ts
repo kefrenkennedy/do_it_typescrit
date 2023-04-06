@@ -75,6 +75,26 @@ class userService {
   }: IUserUpdate) {
     const id = userId;
 
+    if (password) {
+      const hashedPassword = await hash(
+        password.toString(),
+        10
+      );
+
+      const updateUser = await prismaConnect.users.update({
+        where: {
+          id,
+        },
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+        },
+      });
+
+      return { updateUser };
+    }
+
     const updateUser = await prismaConnect.users.update({
       where: {
         id,
@@ -82,7 +102,6 @@ class userService {
       data: {
         name,
         email,
-        password,
       },
     });
 

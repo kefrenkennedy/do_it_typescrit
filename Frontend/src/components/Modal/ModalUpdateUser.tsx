@@ -35,37 +35,45 @@ interface UserData {
   userId: string;
 }
 
-/* const schema = yup.object()
-  .shape({
-    project_type: yup.string().oneOf(listOfProjectTypes).required(),
-    provider_company_id: yup.string().uuid().required(),
-    unit: yup.string().oneOf(listOfUnits).required(),
-    unit_value: yup.string().test(
-      "is-number",
-      "unit_value must be a number",
-      (value: string) => !isNaN(Number(value))
-    ),
-  })
-  .noUnknown(true)
-  .strict(); */
-
 const updateUserSchema = yup.object().shape({
   name: yup.string(),
   email: yup.string().email("Invalid email"),
   password: yup
     .string()
     .test(
-      "passwordValidaton",
-      "Password must be at least 8 characters long",
-      (password: string) => password.length >= 8
+      "passwordLowercase",
+      "Password must contain at least one lowercase letter",
+      (password?: string) => {
+        return !password || /[a-z]/.test(password);
+      }
     )
-    .min(8, "Password must be at least 8 characters long")
-    .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-    .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .matches(/\d/, "Password must contain at least one number")
-    .matches(
-      /[!@#$%^&*(),.?":{}|<>]/,
-      "Password must contain at least one symbol"
+    .test(
+      "passwordUppercase",
+      "Password must contain at least one uppercase letter",
+      (password?: string) => {
+        return !password || /[A-Z]/.test(password);
+      }
+    )
+    .test(
+      "passwordNumber",
+      "Password must contain at least one number",
+      (password?: string) => {
+        return !password || /\d/.test(password);
+      }
+    )
+    .test(
+      "passwordSymbol",
+      "Password must contain at least one symbol",
+      (password?: string) => {
+        return !password || /[!@#$%^&*(),.?":{}|<>]/.test(password);
+      }
+    )
+    .test(
+      "passwordLength",
+      "Password must have at least 8 characters",
+      (password?: string) => {
+        return !password || password.length >= 8;
+      }
     ),
 });
 
@@ -95,7 +103,22 @@ export const ModalUpdateUser = ({ isOpen, onClose }: ModalUpdateUserProps) => {
       userId: user.id,
     };
 
-    updateUser(updatedData).then((res) => onClose());
+    updateUser(updatedData)
+      .then((res) => {
+        localStorage.setItem(
+          "@Doit:user",
+          JSON.stringify({
+            name: updatedData.updatedName,
+            email: updatedData.updatedEmail,
+            password: updatedData.updatedPassword,
+            userId: updatedData.userId,
+          })
+        );
+
+        onClose();
+        location.reload();
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

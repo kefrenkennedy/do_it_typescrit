@@ -5,7 +5,7 @@ import {
   completeTaskValidation,
   createTaskValidation,
   updateTaskValidation,
-} from 'validations/taskValidation';
+} from '../validations/taskValidation';
 
 const taskRoutes = Router();
 

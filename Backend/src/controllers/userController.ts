@@ -40,6 +40,14 @@ class userController {
     });
   }
 
+  async readAll(req: Request, res: Response) {
+    const data = await userService.readAll();
+
+    return res.status(200).json({
+      data: excludeResponseMiddleware(data, ['password']),
+    });
+  }
+
   async update(req: Request, res: Response) {
     const errors = validationResult(req);
 

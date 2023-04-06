@@ -2,23 +2,17 @@ import { body } from 'express-validator';
 
 export const createUserValidation = [
   body('name')
-    .not()
-    .isEmpty()
-    .withMessage('name is required')
+    .if((value: any) => value !== '')
     .isString()
     .withMessage('name must be a string'),
   body('email')
-    .not()
-    .isEmpty()
-    .withMessage('Email is required')
+    .if((value: any) => value !== '')
     .isString()
     .withMessage('Email must be a string')
     .isEmail()
     .withMessage('Invalid Email'),
   body('password')
-    .not()
-    .isEmpty()
-    .withMessage('Password is required')
+    .if((value: any) => value !== '')
     .isString()
     .isLength({ min: 8 })
     .matches(
@@ -32,15 +26,19 @@ export const createUserValidation = [
 
 export const updateUserValidation = [
   body('name')
+    .if((value: any) => value !== '')
     .isString()
     .withMessage('name must be a string'),
   body('email')
+    .if((value: any) => value !== '')
     .isString()
     .withMessage('Email must be a string')
     .isEmail()
     .withMessage('Invalid Email'),
   body('password')
+    .optional()
     .isString()
+    .withMessage('Password must be a string')
     .isLength({ min: 8 })
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$/,
