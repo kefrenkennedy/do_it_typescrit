@@ -60,10 +60,10 @@ class userService {
   }
 
   async update({
-    userId,
     name,
     email,
     password,
+    userId,
   }: IUserUpdate) {
     const id = userId;
 

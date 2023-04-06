@@ -29,7 +29,7 @@ interface CardProps {
 }
 
 export const Card = ({ task, onClick }: CardProps) => {
-  const { deleteTask, completeTask, updateTask } = useTasks();
+  const { deleteTask, completeTask } = useTasks();
   const { accessToken, user } = useAuth();
   const {
     isOpen: isOpenUpdate,

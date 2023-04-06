@@ -5,3 +5,10 @@ export interface Task {
   completed: boolean;
   createdAt?: string;
 }
+
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}

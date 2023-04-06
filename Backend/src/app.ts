@@ -32,7 +32,7 @@ class App {
   async routes() {
     this.server.use('/login', authRotes);
     this.server.use('/dashboard/user', userRoutes);
-    this.server.use('/dashboard', taskRoutes);
+    this.server.use('/dashboard/task', taskRoutes);
     this.server.use(errorMiddleware);
   }
 }

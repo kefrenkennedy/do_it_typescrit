@@ -57,7 +57,7 @@ export const ModalTaskDetail = ({
                 <FaCube color={theme.colors.white} />
               </Center>
               <Text fontWeight="bold" ml="2">
-                Visualizar
+                View
               </Text>
             </Flex>
             <HStack spacing="2">

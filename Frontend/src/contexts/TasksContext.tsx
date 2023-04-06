@@ -58,10 +58,11 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [taskNotFound, setTaskNotFound] = useState("");
+  const [complete, setComplete] = useState(false);
 
   const loadTasks = useCallback(async (userId: string, accessToken: string) => {
     try {
-      const response = await api.get("/dashboard", {
+      const response = await api.get("/dashboard/task", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -75,7 +76,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
   const createTask = useCallback(
     async (data: Omit<Task, "id">, accessToken: string) => {
       api
-        .post("dashboard", data, {
+        .post("dashboard/task", data, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((res: AxiosResponse<Task>) => {
@@ -89,7 +90,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
   const deleteTask = useCallback(
     async (taskId: string, accessToken: string) => {
       await api
-        .delete(`/dashboard/${taskId}`, {
+        .delete(`/dashboard/task/${taskId}`, {
           headers: { Authorization: `Bearer ${accessToken}` },
         })
         .then((_) => {
@@ -103,10 +104,12 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 
   const completeTask = useCallback(
     async (taskId: string, userId: string, accessToken: string) => {
+      setComplete(!complete);
+
       await api
         .patch(
-          `/dashboard/${taskId}/complete`,
-          { completed: true, userId },
+          `/dashboard/task/complete/${taskId}`,
+          { completed: complete, userId },
           {
             headers: { Authorization: `Bearer ${accessToken}` },
           }
@@ -114,9 +117,8 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
         .then((res) => {
           const filteredTasks = tasks.filter((task) => task.id != taskId);
           const task = tasks.find((task) => task.id === taskId);
-
           if (task) {
-            task.completed = true;
+            task.completed = complete;
             setTasks([...filteredTasks, task]);
           }
         })
@@ -142,7 +144,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
       }
       await api
         .patch(
-          `/dashboard/${taskId}`,
+          `/dashboard/task/${taskId}`,
           { ...updatedFields, userId },
           {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -168,7 +170,7 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 
   const searchTask = useCallback(
     async (taskTitle: string, accessToken: string) => {
-      const response = await api.get("/dashboard", {
+      const response = await api.get("/dashboard/task/search", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
 

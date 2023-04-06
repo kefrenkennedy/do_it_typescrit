@@ -11,6 +11,7 @@ import { api } from "../../services/api";
 import { ModalSuccess } from "../../components/Modal/ModalSuccess";
 import { ModalError } from "../../components/Modal/ModalError";
 import { useHistory } from "react-router-dom";
+import { useUser } from "../../contexts/UserContext";
 
 const signUpSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -42,6 +43,8 @@ export interface SignUpData {
 export const SignUp = () => {
   const [loading, setLoading] = useState(false);
 
+  const { createUser } = useUser();
+
   const {
     formState: { errors },
     register,
@@ -63,17 +66,15 @@ export const SignUp = () => {
   } = useDisclosure();
 
   const handleSignUp = ({ name, email, password }: SignUpData) => {
-    setLoading(true);
-    api
-      .post("/dashboard/user", { name, email, password })
-      .then((res) => {
-        setLoading(false);
-        onModalSuccessOpen();
-      })
-      .catch((err) => {
-        setLoading(false);
-        onModalErrorOpen();
-      });
+    const data = {
+      name,
+      email,
+      password,
+      setLoading,
+      onModalSuccessOpen,
+      onModalErrorOpen,
+    };
+    createUser(data);
   };
 
   const isWideVersion = useBreakpointValue({

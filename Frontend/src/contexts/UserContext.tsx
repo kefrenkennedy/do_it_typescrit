@@ -8,6 +8,7 @@ import {
 
 import { api } from "../services/api";
 import { useAuth } from "./AuthContext";
+import { SignUpData } from "../pages/Signup";
 
 interface UserProviderProps {
   children: ReactNode;
@@ -37,9 +38,19 @@ export interface DeleteAccountData {
   accessToken: string;
 }
 
+export interface CreateUserData {
+  email: string;
+  password: string;
+  name: string;
+  setLoading: (bool: boolean) => void;
+  onModalSuccessOpen: () => void;
+  onModalErrorOpen: () => void;
+}
+
 interface UserContextData {
   user: User;
   accessToken: string;
+  createUser: (data: CreateUserData) => Promise<void>;
   updateUser: (updatedData: UpdateData) => Promise<void>;
   deleteUser: (data: DeleteAccountData) => Promise<void>;
 }
@@ -69,6 +80,30 @@ const UserProvider = ({ children }: UserProviderProps) => {
     return {} as UserState;
   });
 
+  const createUser = useCallback(
+    async ({
+      name,
+      email,
+      password,
+      setLoading,
+      onModalSuccessOpen,
+      onModalErrorOpen,
+    }: CreateUserData) => {
+      setLoading(true);
+      await api
+        .post("/dashboard/user", { name, email, password })
+        .then((res) => {
+          setLoading(false);
+          onModalSuccessOpen();
+        })
+        .catch((err) => {
+          setLoading(false);
+          onModalErrorOpen();
+        });
+    },
+    []
+  );
+
   const updateUser = useCallback(
     async ({
       userId,
@@ -76,7 +111,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
       updatedEmail,
       updatedPassword,
     }: UpdateData) => {
-      const { accessToken, user } = useAuth();
+      const accessToken = localStorage.getItem("@Doit:accessToken");
 
       const updatedFields: {
         name?: string;
@@ -97,7 +132,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
       }
       await api
         .patch(
-          `/dashboard/${userId}`,
+          `/dashboard/user/${userId}`,
           { ...updatedFields, userId },
           {
             headers: { Authorization: `Bearer ${accessToken}` },
@@ -144,6 +179,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
       value={{
         accessToken: data.accessToken,
         user: data.user,
+        createUser,
         updateUser,
         deleteUser,
       }}

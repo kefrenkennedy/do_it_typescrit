@@ -73,21 +73,22 @@ export const ModalCreateTask = ({ isOpen, onClose }: ModalCreateTaskProps) => {
               <FaClipboard color={theme.colors.white} />
             </Center>
             <Text fontWeight="bold" ml="2">
-              Adicionar
+              Add
             </Text>
+            <Center
+              onClick={onClose}
+              as="button"
+              ml="auto"
+              h="32px"
+              w="32px"
+              bg="red.600"
+              fontSize="lg"
+              borderRadius="md"
+            >
+              <FaTimes color={theme.colors.white} />
+            </Center>
           </ModalHeader>
-          <Center
-            onClick={onClose}
-            as="button"
-            ml="auto"
-            h="32px"
-            w="32px"
-            bg="red.600"
-            fontSize="lg"
-            borderRadius="md"
-          >
-            <FaTimes color={theme.colors.white} />
-          </Center>
+
           <ModalBody textAlign="center">
             <VStack spacing="5">
               <Textarea
@@ -114,12 +115,11 @@ export const ModalCreateTask = ({ isOpen, onClose }: ModalCreateTaskProps) => {
               h="60px"
               _hover={{ bg: "purple.600" }}
             >
-              Adicionar tarefa
+              Add new task
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
-      
     </>
   );
 };

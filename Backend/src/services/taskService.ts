@@ -68,16 +68,39 @@ class taskService {
   }
 
   async completeTask({ taskId }: ITaskComplete) {
-    const completedTask = await prismaConnect.tasks.update({
+    const task = await prismaConnect.tasks.findUnique({
       where: {
         id: taskId,
       },
-      data: {
-        completed: true,
-      },
     });
 
-    return completedTask;
+    if (task?.completed === false) {
+      const completedTask =
+        await prismaConnect.tasks.update({
+          where: {
+            id: taskId,
+          },
+          data: {
+            completed: true,
+          },
+        });
+
+      return completedTask;
+    }
+
+    if (task?.completed === true) {
+      const completedTask =
+        await prismaConnect.tasks.update({
+          where: {
+            id: taskId,
+          },
+          data: {
+            completed: false,
+          },
+        });
+
+      return completedTask;
+    }
   }
 
   async delete({ taskId }: ITaskDelete) {

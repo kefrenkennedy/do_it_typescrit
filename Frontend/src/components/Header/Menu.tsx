@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Center,
   Drawer,
   DrawerBody,
@@ -16,6 +17,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 import { FaTrash } from "react-icons/fa";
 import { ModalDeleteUser } from "../Modal/ModalDeleteUser";
+import { ModalUpdateUser } from "../Modal/ModalUpdateUser";
 
 interface MenuProps {
   isOpen: boolean;
@@ -31,9 +33,18 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
     onOpen: onOpenDelete,
   } = useDisclosure();
 
+  const {
+    isOpen: isOpenUpdate,
+    onClose: onCloseUpdate,
+    onOpen: onOpenUpdate,
+  } = useDisclosure();
+
   return (
     <>
       <ModalDeleteUser isOpen={isOpenDelete} onClose={onCloseDelete} />
+
+      <ModalUpdateUser isOpen={isOpenUpdate} onClose={onCloseUpdate} />
+
       <Drawer isOpen={isOpen} placement="top" onClose={onClose}>
         <DrawerOverlay mt={["13vh", "8vh"]} />
         <DrawerContent ml="auto" mt="80px" w={["450px", "350px"]}>
@@ -51,7 +62,24 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
           >
             {user.email}
           </DrawerHeader>
-          <DrawerBody>
+          <DrawerBody
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+          >
+            <Button
+              bg="purple.500"
+              color="white"
+              paddingX="16"
+              h="40px"
+              mb="10px"
+              borderRadius="8px"
+              onClick={() => onOpenUpdate()}
+              mt={["4", "4", "0"]}
+              _hover={{ bg: "purple.600" }}
+            >
+              Edit Data
+            </Button>
             <Flex
               mb="10px"
               align="center"

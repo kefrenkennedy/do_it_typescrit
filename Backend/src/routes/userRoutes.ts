@@ -1,7 +1,4 @@
-import {
-
-  Router,
-} from 'express';
+import { Router } from 'express';
 import userController from '../controllers/userController';
 import tokenMiddleware from '../middlewares/tokenMiddleware';
 
@@ -10,7 +7,7 @@ const userRoutes = Router();
 userRoutes.post('/', userController.create);
 
 userRoutes.patch(
-  '/',
+  '/:userId',
   tokenMiddleware.user,
   userController.update
 );

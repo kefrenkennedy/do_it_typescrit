@@ -52,7 +52,7 @@ export const ModalError = ({
 
           <ModalBody textAlign="center" color="gray.400">
             <Text>
-              Ocorreu algum erro! <b>{error}</b>
+              An error has occurred! <b>{error}</b>
             </Text>
           </ModalBody>
 
@@ -65,7 +65,7 @@ export const ModalError = ({
               _hover={{ bg: "red.700" }}
               onClick={onClose}
             >
-              Tentar novamente
+              Try again
             </Button>
             <Text textAlign="center" mt="4">
               <Box dangerouslySetInnerHTML={{ __html: secondaryText }} />

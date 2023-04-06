@@ -92,19 +92,20 @@ export const ModalUpdateTask = ({
             <Text fontWeight="bold" ml="2">
               Edit
             </Text>
+            <Center
+              onClick={onClose}
+              as="button"
+              ml="auto"
+              h="32px"
+              w="32px"
+              bg="red.600"
+              fontSize="lg"
+              borderRadius="md"
+            >
+              <FaTimes color={theme.colors.white} />
+            </Center>
           </ModalHeader>
-          <Center
-            onClick={onClose}
-            as="button"
-            ml="auto"
-            h="32px"
-            w="32px"
-            bg="red.600"
-            fontSize="lg"
-            borderRadius="md"
-          >
-            <FaTimes color={theme.colors.white} />
-          </Center>
+
           <ModalBody textAlign="center">
             <VStack spacing="5">
               <Textarea
