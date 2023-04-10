@@ -78,7 +78,7 @@ export const Menu = ({ isOpen, onClose }: MenuProps) => {
               mt={["4", "4", "0"]}
               _hover={{ bg: "purple.600" }}
             >
-              Edit Data
+              Edit profile
             </Button>
             <Flex
               mb="10px"

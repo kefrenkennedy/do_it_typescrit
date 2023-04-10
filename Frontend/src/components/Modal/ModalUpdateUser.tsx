@@ -93,7 +93,7 @@ export const ModalUpdateUser = ({ isOpen, onClose }: ModalUpdateUserProps) => {
     reset(user);
   }, []);
 
-  const { updateUser } = useUser();
+  const { updateProfile } = useAuth();
 
   const handleUpdateUser = (data: UserData) => {
     const updatedData = {
@@ -103,20 +103,9 @@ export const ModalUpdateUser = ({ isOpen, onClose }: ModalUpdateUserProps) => {
       userId: user.id,
     };
 
-    updateUser(updatedData)
+    updateProfile(updatedData)
       .then((res) => {
-        localStorage.setItem(
-          "@Doit:user",
-          JSON.stringify({
-            name: updatedData.updatedName,
-            email: updatedData.updatedEmail,
-            password: updatedData.updatedPassword,
-            userId: updatedData.userId,
-          })
-        );
-
         onClose();
-        location.reload();
       })
       .catch((err) => console.log(err));
   };

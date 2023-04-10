@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { LoginInfo } from "./LoginInfo";
 import { LoginForm } from "./LoginForm";
+import { toast } from "react-toastify";
 
 const signInSchema = yup.object().shape({
   email: yup.string().required("Email is required").email("Invalid Email"),
@@ -35,7 +36,15 @@ export const Login = () => {
     setLoading(true);
     signIn(data)
       .then((_) => setLoading(false))
-      .catch((err) => setLoading(false));
+      .catch((err) => {
+        const toastId = "my-toast-id";
+        toast.error("Invalid Email or Password", {
+          toastId,
+          autoClose: 3000,
+          closeOnClick: true,
+        });
+        setLoading(false);
+      });
   };
 
   return (

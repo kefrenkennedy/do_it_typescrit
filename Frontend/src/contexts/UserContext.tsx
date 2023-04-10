@@ -43,13 +43,13 @@ export interface CreateUserData {
   setLoading: (bool: boolean) => void;
   onModalSuccessOpen: () => void;
   onModalErrorOpen: () => void;
+  setErrorToast: (err: string) => void;
 }
 
 interface UserContextData {
   user: User;
   accessToken: string;
   createUser: (data: CreateUserData) => Promise<void>;
-  updateUser: (updatedData: UpdateData) => Promise<void>;
   deleteUser: (data: DeleteAccountData) => Promise<void>;
 }
 
@@ -86,6 +86,7 @@ const UserProvider = ({ children }: UserProviderProps) => {
       setLoading,
       onModalSuccessOpen,
       onModalErrorOpen,
+      setErrorToast,
     }: CreateUserData) => {
       setLoading(true);
       await api
@@ -95,6 +96,13 @@ const UserProvider = ({ children }: UserProviderProps) => {
           onModalSuccessOpen();
         })
         .catch((err) => {
+          setErrorToast(
+            String(
+              err.response.data.message
+                ? err.response.data.message
+                : err.response.data.errors
+            )
+          );
           setLoading(false);
           onModalErrorOpen();
         });
@@ -102,58 +110,6 @@ const UserProvider = ({ children }: UserProviderProps) => {
     []
   );
 
-  const updateUser = useCallback(
-    async ({
-      userId,
-      updatedName,
-      updatedEmail,
-      updatedPassword,
-    }: UpdateData) => {
-      const accessToken = localStorage.getItem("@Doit:accessToken");
-
-      const updatedFields: {
-        name?: string;
-        email?: string;
-        password?: string;
-      } = {};
-
-      if (updatedName) {
-        updatedFields.name = updatedName;
-      }
-
-      if (updatedEmail) {
-        updatedFields.email = updatedEmail;
-      }
-
-      if (updatedPassword) {
-        updatedFields.password = updatedPassword;
-      }
-      await api
-        .patch(
-          `/dashboard/user/${userId}`,
-          { ...updatedFields, userId },
-          {
-            headers: { Authorization: `Bearer ${accessToken}` },
-          }
-        )
-        .then((res) => {
-          const updatedUsers = users.map((user) => {
-            if (user.id === userId) {
-              return {
-                ...user,
-                name: updatedFields.name ?? user.name,
-                email: updatedFields.email ?? user.email,
-                password: updatedFields.password ?? user.password,
-              };
-            }
-            return user;
-          });
-          setUsers(updatedUsers);
-        })
-        .catch((err) => console.log(err));
-    },
-    [users]
-  );
 
   const deleteUser = useCallback(
     async ({ userId, accessToken }: DeleteAccountData) => {
@@ -178,7 +134,6 @@ const UserProvider = ({ children }: UserProviderProps) => {
         accessToken: data.accessToken,
         user: data.user,
         createUser,
-        updateUser,
         deleteUser,
       }}
     >

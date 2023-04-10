@@ -58,7 +58,6 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [taskNotFound, setTaskNotFound] = useState("");
-  const [complete, setComplete] = useState(false);
 
   const createTask = useCallback(
     async (data: Omit<Task, "id">, accessToken: string) => {
@@ -174,25 +173,26 @@ const TaskProvider = ({ children }: TaskProviderProps) => {
 
   const completeTask = useCallback(
     async (taskId: string, userId: string, accessToken: string) => {
-      setComplete(!complete);
+      const task = tasks.find((task) => task.id === taskId);
+      if (task) {
+        await api
+          .patch(
+            `/dashboard/task/complete/${taskId}`,
+            { completed: !task.completed, userId },
+            {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            }
+          )
+          .then((res) => {
+            const filteredTasks = tasks.filter((task) => task.id != taskId);
 
-      await api
-        .patch(
-          `/dashboard/task/complete/${taskId}`,
-          { completed: complete, userId },
-          {
-            headers: { Authorization: `Bearer ${accessToken}` },
-          }
-        )
-        .then((res) => {
-          const filteredTasks = tasks.filter((task) => task.id != taskId);
-          const task = tasks.find((task) => task.id === taskId);
-          if (task) {
-            task.completed = complete;
-            setTasks([...filteredTasks, task]);
-          }
-        })
-        .catch((err) => console.log(err));
+            setTasks([
+              ...filteredTasks,
+              { ...task, completed: !task.completed },
+            ]);
+          })
+          .catch((err) => console.log(err));
+      }
     },
     [tasks]
   );

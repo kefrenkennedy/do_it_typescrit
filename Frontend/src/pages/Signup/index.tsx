@@ -65,6 +65,8 @@ export const SignUp = () => {
     onClose: onModalErrorClose,
   } = useDisclosure();
 
+  const [errorToast, setErrorToast] = useState("a");
+
   const handleSignUp = ({ name, email, password }: SignUpData) => {
     const data = {
       name,
@@ -73,8 +75,9 @@ export const SignUp = () => {
       setLoading,
       onModalSuccessOpen,
       onModalErrorOpen,
+      setErrorToast
     };
-    createUser(data);
+    createUser(data)
   };
 
   const isWideVersion = useBreakpointValue({
@@ -98,10 +101,10 @@ export const SignUp = () => {
       />
       <ModalError
         secondaryText="You can try again now by clicking the button above or wait a few minutes..."
-        error="Email already registered"
+        error={errorToast}
         isOpen={isModalErrorOpen}
         onClose={onModalErrorClose}
-      />{" "}
+      />
       <Flex
         padding={["10px 15px", "10px 15px", "0px", "0px"]}
         alignItems="center"

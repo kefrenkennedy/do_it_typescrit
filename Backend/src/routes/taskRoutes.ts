@@ -2,7 +2,6 @@ import { Router } from 'express';
 import taskController from '../controllers/taskController';
 import tokenMiddleware from '../middlewares/tokenMiddleware';
 import {
-  completeTaskValidation,
   createTaskValidation,
   updateTaskValidation,
 } from '../validations/taskValidation';
@@ -36,9 +35,8 @@ taskRoutes.patch(
 );
 
 taskRoutes.patch(
-  '/:taskId/complete',
+  '/complete/:taskId',
   tokenMiddleware.user,
-  completeTaskValidation,
   taskController.completeTask
 );
 

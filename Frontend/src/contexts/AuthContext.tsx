@@ -7,6 +7,7 @@ import {
 } from "react";
 
 import { api } from "../services/api";
+import { useMemo } from "react";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -33,6 +34,14 @@ interface AuthContextData {
   accessToken: string;
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
+  updateProfile: (data: UpdateData) => Promise<void>;
+}
+
+interface UpdateData {
+  userId: string;
+  updatedName: string;
+  updatedEmail: string;
+  updatedPassword: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -76,6 +85,47 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     setData({} as AuthState);
   }, []);
 
+  const updateProfile = useCallback(
+    async ({ updatedName, updatedEmail, updatedPassword }: UpdateData) => {
+      const updatedFields: {
+        name?: string;
+        email?: string;
+        password?: string;
+      } = {};
+
+      if (updatedName) {
+        updatedFields.name = updatedName;
+      }
+
+      if (updatedEmail) {
+        updatedFields.email = updatedEmail;
+      }
+
+      if (updatedPassword && updatedPassword != "") {
+        updatedFields.password = updatedPassword;
+      }
+
+      await api
+        .patch(
+          `/dashboard/user/${data.user.id}`,
+          { ...updatedFields, userId: data.user.id },
+          {
+            headers: { Authorization: `Bearer ${data.accessToken}` },
+          }
+        )
+        .then((res) => {
+          console.log("res Antes do setData:", res);
+          setData((prevValue) => ({
+            ...prevValue,
+            user: res.data.data.updatedUser,
+          }));
+          console.log("dois data:", res.data.data);
+          localStorage.setItem("@Doit:user", JSON.stringify(res.data.data.updatedUser));
+        })
+        .catch((err) => console.log(err));
+    },
+    [data, setData]
+  );
 
   return (
     <AuthContext.Provider
@@ -84,6 +134,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         user: data.user,
         signIn,
         signOut,
+        updateProfile,
       }}
     >
       {children}

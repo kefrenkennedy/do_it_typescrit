@@ -11,6 +11,12 @@ import {
 } from '../utils/error/index';
 import authService from './authService';
 import 'dotenv/config';
+import { warnEnvConflicts } from '@prisma/client/runtime';
+
+function isEmailValid(email: string): boolean {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}
 
 class userService {
   async create({ ip, name, email, password }: IUserCreate) {
@@ -18,6 +24,10 @@ class userService {
       await prismaConnect.users.findUnique({
         where: { email },
       });
+
+    if (!isEmailValid(email)) {
+      throw new Error('Invalid email');
+    }
 
     if (verifyUserEmail) {
       throw new ConflitError(
@@ -81,7 +91,7 @@ class userService {
         10
       );
 
-      const updateUser = await prismaConnect.users.update({
+      const updatedUser = await prismaConnect.users.update({
         where: {
           id,
         },
@@ -92,10 +102,10 @@ class userService {
         },
       });
 
-      return { updateUser };
+      return { updatedUser };
     }
 
-    const updateUser = await prismaConnect.users.update({
+    const updatedUser = await prismaConnect.users.update({
       where: {
         id,
       },
@@ -105,7 +115,7 @@ class userService {
       },
     });
 
-    return { updateUser };
+    return { updatedUser };
   }
 
   async delete({ userId }: IUserDelete) {
