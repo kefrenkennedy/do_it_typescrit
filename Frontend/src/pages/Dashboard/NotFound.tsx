@@ -4,7 +4,6 @@ import { Header } from "../../components/Header";
 import { ModalTaskDetail } from "../../components/Modal/ModalTaskDetail";
 import { Task } from "../../interfaces";
 
-
 interface NotFoundProps {
   isTaskDetailOpen: boolean;
   onTaskDetailClose: () => void;
@@ -29,7 +28,7 @@ export const NotFound = ({
         <Header />
         <SearchBox />
         <Center mt="4" textAlign="center" display="flex" flexDir="column">
-          <Heading size="lg"> Não encontramos resultados para:</Heading>
+          <Heading size="lg"> We didn't found any results for: </Heading>
           <Text fontSize="xl" color="gray.300" fontWeight="bold">
             {taskNotFound}
           </Text>

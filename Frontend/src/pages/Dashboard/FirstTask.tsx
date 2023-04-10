@@ -39,12 +39,12 @@ export const FirstTask = () => {
           <FaClipboard color="#bdbdbd" />
         </Center>
         <Heading fontSize="4xl" as="h1" mt="4">
-          Vamos criar sua primeira tarefa
+          Lets create your first task
         </Heading>
         <Text color="gray.400" mt="6">
-          Insira sua meta e mostre a você mesmo <br /> sua capacidade em cumprir{" "}
+          Insert your goal and show yourself <br /> your ability to fulfill
           <Text fontWeight="bold" display="inline-block" color="gray.900">
-            suas atividades
+            your tasks
           </Text>
         </Text>
         <Button
@@ -55,7 +55,7 @@ export const FirstTask = () => {
           _hover={{ bg: "purple.900" }}
           onClick={onCreateTaskOpen}
         >
-          Criar sua primeira tarefa
+          Create your first task
         </Button>
       </Box>
     </>
