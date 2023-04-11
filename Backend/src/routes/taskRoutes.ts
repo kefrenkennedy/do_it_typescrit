@@ -22,7 +22,7 @@ taskRoutes.get(
 );
 
 taskRoutes.get(
-  '/',
+  '/search',
   tokenMiddleware.user,
   taskController.listFiltered
 );
