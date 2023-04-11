@@ -22,14 +22,14 @@ interface ModalDeleteUserProps {
 }
 
 export const ModalDeleteUser = ({ isOpen, onClose }: ModalDeleteUserProps) => {
-  const { deleteUser } = useUser();
+  const { deleteProfile } = useAuth();
   const { user, accessToken } = useAuth();
+  const history = useHistory();
 
   const handleDeleteUser = () => {
     const data = { userId: user.id, accessToken: accessToken };
-    deleteUser(data);
-    localStorage.clear();
-    location.reload();
+    deleteProfile(data);
+    history.push("/");
   };
 
   return (
@@ -41,7 +41,7 @@ export const ModalDeleteUser = ({ isOpen, onClose }: ModalDeleteUserProps) => {
             <Center bg="red.500" w="30px" h="30px" borderRadius="5px">
               <FaExclamation color={theme.colors.white} />
             </Center>
-            <Text> Delete Account</Text>
+            <Text ml="5px"> Delete Account</Text>
             <Center
               onClick={onClose}
               as="button"

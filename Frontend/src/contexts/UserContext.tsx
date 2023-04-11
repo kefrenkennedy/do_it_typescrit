@@ -24,18 +24,6 @@ interface UserState {
   user: User;
 }
 
-interface UpdateData {
-  userId: string;
-  updatedName: string;
-  updatedEmail: string;
-  updatedPassword: string;
-}
-
-export interface DeleteAccountData {
-  userId: string;
-  accessToken: string;
-}
-
 export interface CreateUserData {
   email: string;
   password: string;
@@ -50,7 +38,6 @@ interface UserContextData {
   user: User;
   accessToken: string;
   createUser: (data: CreateUserData) => Promise<void>;
-  deleteUser: (data: DeleteAccountData) => Promise<void>;
 }
 
 const UserContext = createContext<UserContextData>({} as UserContextData);
@@ -110,31 +97,12 @@ const UserProvider = ({ children }: UserProviderProps) => {
     []
   );
 
-
-  const deleteUser = useCallback(
-    async ({ userId, accessToken }: DeleteAccountData) => {
-      await api
-        .delete(`/dashboard/user/${userId}`, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((_) => {
-          const filteredusers = users.filter((user) => user.id != userId);
-          localStorage.removeItem("@Doit:accessToken");
-          localStorage.removeItem("@Doit:user");
-          setUsers(filteredusers);
-        })
-        .catch((err) => console.log(err));
-    },
-    [users]
-  );
-
   return (
     <UserContext.Provider
       value={{
         accessToken: data.accessToken,
         user: data.user,
         createUser,
-        deleteUser,
       }}
     >
       {children}

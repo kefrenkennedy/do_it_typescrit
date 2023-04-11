@@ -8,6 +8,7 @@ import {
 
 import { api } from "../services/api";
 import { useMemo } from "react";
+import { useUser } from "./UserContext";
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -35,6 +36,7 @@ interface AuthContextData {
   signIn: (credentials: SignInCredentials) => Promise<void>;
   signOut: () => void;
   updateProfile: (data: UpdateData) => Promise<void>;
+  deleteProfile: (data: DeleteAccountData) => Promise<void>;
 }
 
 interface UpdateData {
@@ -42,6 +44,11 @@ interface UpdateData {
   updatedName: string;
   updatedEmail: string;
   updatedPassword: string;
+}
+
+export interface DeleteAccountData {
+  userId: string;
+  accessToken: string;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -120,11 +127,31 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
             user: res.data.data.updatedUser,
           }));
           console.log("dois data:", res.data.data);
-          localStorage.setItem("@Doit:user", JSON.stringify(res.data.data.updatedUser));
+          localStorage.setItem(
+            "@Doit:user",
+            JSON.stringify(res.data.data.updatedUser)
+          );
         })
         .catch((err) => console.log(err));
     },
     [data, setData]
+  );
+
+  const deleteProfile = useCallback(
+    async ({ userId, accessToken }: DeleteAccountData) => {
+      await api
+        .delete(`/dashboard/user/${userId}`, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((_) => {
+
+          localStorage.removeItem("@Doit:accessToken");
+          localStorage.removeItem("@Doit:user");
+          setData({} as AuthState);
+        })
+        .catch((err) => console.log(err));
+    },
+    []
   );
 
   return (
@@ -135,6 +162,7 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
         signIn,
         signOut,
         updateProfile,
+        deleteProfile,
       }}
     >
       {children}

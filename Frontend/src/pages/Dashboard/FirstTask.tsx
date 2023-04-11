@@ -43,7 +43,12 @@ export const FirstTask = () => {
         </Heading>
         <Text color="gray.400" mt="6">
           Insert your goal and show yourself <br /> your ability to fulfill
-          <Text fontWeight="bold" display="inline-block" color="gray.900">
+          <Text
+            ml="6px"
+            fontWeight="bold"
+            display="inline-block"
+            color="gray.900"
+          >
             your tasks
           </Text>
         </Text>
