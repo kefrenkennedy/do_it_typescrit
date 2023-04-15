@@ -5,9 +5,6 @@ import errorMiddleware from './middlewares/errorMiddleware';
 import userRoutes from './routes/userRoutes';
 import authRotes from './routes/authRoutes';
 import taskRoutes from './routes/taskRoutes';
-import swaggerUi from 'swagger-ui-express';
-import fs from 'fs/promises';
-import YAML from 'yaml';
 
 class App {
   server: any;
@@ -32,11 +29,6 @@ class App {
   }
 
   async routes() {
-    const filePath = './Do_It.postman_collection.json-SwaggerYaml.yaml';
-    const fileContents = await fs.readFile(filePath, 'utf8');
-    const swaggerDocument = YAML.parse(fileContents);
-
-    this.server.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     this.server.use('/login', authRotes);
     this.server.use('/dashboard/user', userRoutes);
     this.server.use('/dashboard/task', taskRoutes);

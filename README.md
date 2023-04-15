@@ -24,10 +24,13 @@ Do.it is an Full-Stack web application that assists users in their daily lives b
 - and react-router-dom.
 
 ## Base URL ✨
+
 - http://localhost:3333/
 
 ## Diagram:
-![Diagram](do_it_DIAGRAM.png)
+
+![Diagram](DIAGRAM.png)
+
 ## Features ✨
 
 - Create an account with name, email, and password
@@ -47,8 +50,8 @@ To run the app, first, you need to configure the .env file with your PostgreSQL 
 
 1. Open the backend folder in your terminal
 2. Run `npm install` or `yarn install`
-3. Run `npm run dev` or `yarn dev`
-4. Run `prisma migrate dev --name init` to execute the migrations to the database
+3. Run `prisma migrate dev --name init` to execute the migrations to the database
+4. Run `npm run dev` or `yarn dev`
 5. The server will be running on http://localhost:3333
 
 ### Frontend
@@ -73,7 +76,7 @@ To run the app, first, you need to configure the .env file with your PostgreSQL 
 - `PATCH /dashboard/task/complete/:taskId`: Mark task as completed
 
 Almost all routes require authentication. The JWT accessToken is generated when the user is created or logs in and can be accessed in the response.
-
+Checkout the postman's collection on the backend folder to see the tests! (Do_It.postman_collection.json)
 Thank you for checking out my Do_it app! 🙌
 
 Project made by me, Kefren Vasconcelos
