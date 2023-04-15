@@ -1,4 +1,4 @@
-# Do_it App 📝
+# Organiza Aí App 📝
 
 Do.it is an Full-Stack web application that assists users in their daily lives by managing tasks. It is a simple yet robust application. The app includes complete CRUDs for users and tasks.
 
