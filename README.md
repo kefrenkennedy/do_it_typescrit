@@ -54,7 +54,6 @@ To run the app, first, you need to configure the .env file with your PostgreSQL 
 4. Run `prisma migrate dev --name init` to execute the migrations to the database
 5. Run `npm dev` or `yarn dev`
 6. The server will be running on http://localhost:3333
->>>>>>> ba0ca3104ca14db28afafd3c24ac013d44196929
 
 ### Frontend
 
